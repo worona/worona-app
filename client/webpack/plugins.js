@@ -102,15 +102,15 @@ var statsWriterPlugin = function(config) {
 };
 
 var htmlWebpackPlugin = function(config) {
-  var publicPath = config.remote ? 'https://cdn.worona.io/' : 'http://localhost:4000/';
+  var publicPath = config.remote ? 'https://cdn.worona.io/' : 'http://localhost:5000/';
   var vendors = require('../dist/vendors-' + config.entrie + '-worona/' + config.entrie + '/' + config.env + '/files.json')
   return new HtmlWebpackPlugin({
     inject: false,
-    title: 'Worona Dashboard (DEV)',
+    title: 'Worona App (DEV)',
     template: path.resolve('html', 'index.html'),
     favicon: path.resolve('html', 'favicon.png'),
     vendorsFile: vendors.main.file,
-    devServer: 'http://localhost:4000',
+    devServer: 'http://localhost:5000',
     window: {
       publicPath: publicPath,
       __worona__: { [config.env]: true, remote: config.location === 'remote' },

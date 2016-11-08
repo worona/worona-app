@@ -15,8 +15,6 @@ class App extends React.Component {
   }
 }
 
-startSaga('build', sagas);
-
 if ('ontouchstart' in window) {
   window.addEventListener('load', () => FastClick.attach(document.body));
 }
