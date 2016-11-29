@@ -43,7 +43,7 @@ var extractTextPlugin = function(config) {
 
 var dllReferencePlugin = function(config) {
   return new webpack.DllReferencePlugin({
-    context: '.',
+    context: path.resolve('packages/core-' + config.entrie + '-worona'),
     manifest: require('../dist/vendors-' + config.entrie + '-worona/' + config.entrie +
       '/' + config.env + '/json/manifest.json'),
   });
@@ -51,7 +51,8 @@ var dllReferencePlugin = function(config) {
 
 var dllPlugin = function(config) {
   return new webpack.DllPlugin({
-    path: path.resolve('dist', config.name, config.entrie, config.env, 'json', 'manifest.json'),
+    // context: path.resolve('packages', 'core-' + config.entrie + '-worona'),
+    path: path.resolve('..', '..', 'dist', config.name, config.entrie, config.env, 'json', 'manifest.json'),
     name: 'vendors_' + config.entrie + '_worona',
   });
 };
@@ -106,7 +107,7 @@ var htmlWebpackPlugin = function(config) {
   var vendors = require('../dist/vendors-' + config.entrie + '-worona/' + config.entrie + '/' + config.env + '/files.json')
   return new HtmlWebpackPlugin({
     inject: false,
-    title: 'Worona App (DEV)',
+    title: 'Worona Dashboard (DEV)',
     template: path.resolve('html', 'index.html'),
     favicon: path.resolve('html', 'favicon.png'),
     vendorsFile: vendors.main.file,
