@@ -1,5 +1,5 @@
 /* eslint-disable no-constant-condition, no-undef, global-require, import/no-dynamic-require */
-import { isRemote, packageDownloaded } from 'worona-deps';
+import { packageDownloaded } from 'worona-deps';
 import { put, call } from 'redux-saga/effects';
 import update from 'react/lib/update';
 import { takeEvery } from 'redux-saga';
@@ -11,7 +11,7 @@ import * as actions from '../actions';
 // in the webpack config to separate the bundles.
 export const requireLocalPackage = pkg => new Promise((resolve) => {
   const pkgName = /(.+)-worona/.exec(pkg.name)[1];
-  const req = require(`../../../../${pkgName}-worona/src/dashboard/index.js`);
+  const req = require(`../../../../../${pkgName}-worona/src/dashboard/index.js`);
   req(module => resolve(module));
 });
 
@@ -19,7 +19,7 @@ export const requireLocalPackage = pkg => new Promise((resolve) => {
 // are now in the browser without webpack. We need to be able to modify those packages without
 // having to recompile the core-dashboard-worona package, so we can't use Webpack here.
 export const requireRemotePackage = pkg => new Promise((resolve) => {
-  SystemJS.import(`https://cdn.worona.io/packages/${pkg.prod.main}`)
+  SystemJS.import(`https://cdn.worona.io/packages/${pkg.main}`)
   .then(module => resolve(module));
 });
 
@@ -28,7 +28,7 @@ export const requireRemotePackage = pkg => new Promise((resolve) => {
 // requireLocalPackage or requireRemotePackage and dispatches PACKAGE_DOWNLOAD_SUCCED or
 // PACKAGE_DOWNLOAD_FAILED if necessary.
 export function* packageDownloadSaga({ pkg }) {
-  const requirePackage = isRemote ? requireRemotePackage : requireLocalPackage;
+  const requirePackage = pkg.local ? requireLocalPackage : requireRemotePackage;
   try {
     const module = yield call(requirePackage, pkg);
     // Adds the download module to worona-deps.

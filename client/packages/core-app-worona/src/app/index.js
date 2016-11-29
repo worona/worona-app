@@ -6,8 +6,8 @@ __webpack_public_path__ = window.publicPath;
 import 'worona-polyfills';
 import { packageDownloaded, packageActivated } from 'worona-deps';
 
-import * as build from './build-app-extension-worona';
 import * as loading from './loading-app-theme-worona';
+import * as build from './build-app-extension-worona';
 import * as router from './router-app-extension-worona';
 
 packageDownloaded(build);

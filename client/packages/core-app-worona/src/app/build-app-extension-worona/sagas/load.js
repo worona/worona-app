@@ -1,8 +1,7 @@
 /* eslint-disable no-constant-condition */
-import { isRemote } from 'worona-deps';
+import { isProd, getSagas, getReducers, packageActivated, getDeps, waitForDeps } from 'worona-deps';
 import { put, call } from 'redux-saga/effects';
 import { takeEvery } from 'redux-saga';
-import { getSagas, getReducers, packageActivated, waitForDeps } from 'worona-deps';
 import { addReducer, startSaga, reloadReducers, removeReducer, stopSaga } from '../store';
 import * as types from '../types';
 import * as actions from '../actions';
@@ -21,11 +20,12 @@ export function* loadReducers(name, namespace) {
 
 export function* packageLoadSaga({ pkg }) {
   try {
-    yield call(waitForDeps, pkg.dependencies, 10000);
+    const deps = yield call(getDeps, pkg.name);
+    yield call(waitForDeps, deps, 10000);
     yield call(loadReducers, pkg.name, pkg.namespace);
-    yield call(loadSagas, pkg.name, pkg.namespace);
     yield call(reloadReducers);
-    if (isRemote) {
+    yield call(loadSagas, pkg.name, pkg.namespace);
+    if (isProd) {
       yield [
         call(waitFor, pkg.name,
           types.PACKAGE_ASSETS_LOAD_SUCCEED, types.PACKAGE_ASSETS_LOAD_FAILED),

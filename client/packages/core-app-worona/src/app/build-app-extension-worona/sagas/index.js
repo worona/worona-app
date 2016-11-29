@@ -1,6 +1,6 @@
 /* eslint-disable no-constant-condition, array-callback-return */
 import request from 'superagent';
-import { isRemote } from 'worona-deps';
+import { isRemote, isDev, getDevelopmentPackages } from 'worona-deps';
 import { normalize } from 'normalizr';
 import { takeEvery } from 'redux-saga';
 import { put, fork, call, select } from 'redux-saga/effects';
@@ -21,11 +21,15 @@ export function* addCorePackagesSaga() {
   yield put(actions.corePackagesRequested());
   try {
     // Call the API.
+    const env = isDev ? 'dev' : 'prod';
     const res = isRemote ?
-      yield call(request.get, 'https://cdn.worona.io/api/v1/settings/core/dashboard') :
+      yield call(request.get, `https://cdn.worona.io/api/v1/settings/core/dashboard/${env}`) :
       defaultPackages;
     // Normalize the result using normalizr.
-    const pkgs = normalize(res.body, schemas.arrayOfPackages).entities.packages || [];
+    const pkgs = {
+      ...normalize(res.body, schemas.arrayOfPackages).entities.packages,
+      ...getDevelopmentPackages(),
+    };
     // Inform that the API call was successful.
     yield put(actions.corePackagesSucceed({ pkgs }));
     // Start activation for each downloaded package.
@@ -38,8 +42,8 @@ export function* addCorePackagesSaga() {
 export function* packageActivationSaga({ pkg }) {
   try {
     // Download phase.
-    const downloaded = select(selectors.getDownloadedPackages);
-    if (!downloaded[pkg.name]) {
+    const downloaded = yield select(selectors.getDownloadedPackages);
+    if (downloaded.indexOf(pkg.name) === -1) {
       yield put(actions.packageDownloadRequested({ pkg }));
       yield call(waitFor, pkg.name, types.PACKAGE_DOWNLOAD_SUCCEED, types.PACKAGE_DOWNLOAD_FAILED);
     }

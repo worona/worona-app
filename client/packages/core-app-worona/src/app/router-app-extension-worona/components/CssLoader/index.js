@@ -1,9 +1,9 @@
 import { isRemote } from 'worona-deps';
 import React from 'react';
 import { connect } from 'react-redux';
-import * as deps from '../../dependencies';
+import * as deps from '../../deps';
 
-class LinkCss extends React.Component {
+class LinkCssClass extends React.Component {
   componentDidMount() {
     this.refs.link.addEventListener('load', this.props.assetsFileDownloaded);
   }
@@ -14,7 +14,7 @@ class LinkCss extends React.Component {
     );
   }
 }
-LinkCss.propTypes = ({
+LinkCssClass.propTypes = ({
   cdn: React.PropTypes.string.isRequired,
   path: React.PropTypes.string.isRequired,
   assetsFileDownloaded: React.PropTypes.func.isRequired,
@@ -26,10 +26,10 @@ const mapDispatchToProps = (dispatch, { path, pkgName }) => ({
     dispatch(deps.actions.packageAssetFileDownloaded({ path, pkgName, assetType: 'css' })),
 });
 
-LinkCss = connect(null, mapDispatchToProps)(LinkCss);
+const LinkCss = connect(null, mapDispatchToProps)(LinkCssClass);
 
-export const CssLoader = ({ cssAssets }) => {
-  const cdn = isRemote ? 'https://cdn.worona.io/packages/' : 'http://localhost:5000/packages/';
+const CssLoader = ({ cssAssets }) => {
+  const cdn = isRemote ? 'https://cdn.worona.io/packages/' : 'http://localhost:4000/packages/';
   return (
     <div>
       {cssAssets.map(asset =>
