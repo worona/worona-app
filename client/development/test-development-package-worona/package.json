@@ -1,0 +1,46 @@
+{
+  "name": "test-development-package-worona",
+  "version": "1.2.2",
+  "description": "A package to test development packages within worona dashboard core.",
+  "scripts": {
+    "test" : "ava src/dashboard/tests/**/*.js --watch --verbose --require babel-register --require babel-polyfill"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/worona/worona-dashboard.git"
+  },
+  "keywords": [
+    "worona",
+    "extension",
+    "accounts",
+    "dashboard"
+  ],
+  "author": "Worona Labs SL | Luis Herranz, @luisherranz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/worona/worona-dashboard/issues"
+  },
+  "homepage": "https://github.com/worona/worona#readme",
+  "worona": {
+    "niceName": "Test Develoment Package",
+    "slug": "testDevelopmentPackage",
+    "namespace": "development",
+    "type": "extension",
+    "services": [
+      "dashboard",
+      "app",
+      "fbia",
+      "amp"
+    ],
+    "authors": [
+      "luis@worona.org"
+    ],
+    "default": 0,
+    "core": 0,
+    "listed": 0,
+    "deactivable": 0,
+    "public": 1
+  },
+  "devDependencies": {},
+  "dependencies": {}
+}
