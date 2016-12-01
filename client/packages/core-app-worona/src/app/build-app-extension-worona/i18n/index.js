@@ -5,7 +5,7 @@ import XHR from 'i18next-xhr-backend';
 
 const loadLocales = (url, options, callback) => {
   const [ns, lng] = _.drop(/(.+)##(.+)/.exec(url));
-  if (ns !== 'translation') { // Don't load the default namespace.
+  if (ns !== 'build') { // Don't load the default namespace.
     try {
       const locale = getLocale(ns, lng);
       locale(file => callback(file, { status: '200' }));

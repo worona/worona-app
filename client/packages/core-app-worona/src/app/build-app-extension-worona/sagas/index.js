@@ -1,41 +1,35 @@
 /* eslint-disable no-constant-condition, array-callback-return */
 import request from 'superagent';
-import { isRemote, isDev, getDevelopmentPackages } from 'worona-deps';
-import { normalize } from 'normalizr';
+import { isDev, getDevelopmentPackages } from 'worona-deps';
 import { takeEvery } from 'redux-saga';
 import { put, fork, call, select } from 'redux-saga/effects';
 import { toArray } from 'lodash';
 import * as actions from '../actions';
 import * as types from '../types';
-import * as schemas from '../schemas';
 import * as selectors from '../selectors';
 import download from './download';
 import load from './load';
 import assets from './assets';
 import { waitFor } from './waitFor';
-import defaultPackages from '../default/packages';
 
-// Function which download the core packages list from the api and then starts a
-// PACKAGES_ADDITION_REQUESTED to add them to the system.
-export function* addCorePackagesSaga() {
-  yield put(actions.corePackagesRequested());
+export function* retrieveSettings() {
+  yield put(actions.appSettingsRequested());
+  const siteId = yield select(selectors.getSiteId);
   try {
     // Call the API.
     const env = isDev ? 'dev' : 'prod';
-    const res = isRemote ?
-      yield call(request.get, `https://cdn.worona.io/api/v1/settings/core/dashboard/${env}`) :
-      defaultPackages;
-    // Normalize the result using normalizr.
-    const pkgs = {
-      ...normalize(res.body, schemas.arrayOfPackages).entities.packages,
-      ...getDevelopmentPackages(),
-    };
+    const res = yield call(request.get,
+      `https://cdn.worona.io/api/v1/settings/site/${siteId}/app/${env}/live`);
+    const settings = res.body;
+    // Extract the packages info from settings.
+    const devPkgs = getDevelopmentPackages();
+    const pkgs = settings.concat(toArray(devPkgs)).map(setting => setting.woronaInfo);
     // Inform that the API call was successful.
-    yield put(actions.corePackagesSucceed({ pkgs }));
+    yield put(actions.appSettingsSucceed({ settings, pkgs }));
     // Start activation for each downloaded package.
     yield toArray(pkgs).map(pkg => put(actions.packageActivationRequested({ pkg })));
   } catch (error) {
-    yield put(actions.corePackagesFailed({ error: error.message }));
+    yield put(actions.appSettingsFailed());
   }
 }
 
@@ -70,6 +64,6 @@ export default function* sagas() {
     fork(load),
     fork(assets),
     takeEvery(types.PACKAGE_ACTIVATION_REQUESTED, packageActivationSaga),
-    fork(addCorePackagesSaga),
+    fork(retrieveSettings),
   ];
 }
