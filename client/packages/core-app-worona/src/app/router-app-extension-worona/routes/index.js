@@ -3,7 +3,7 @@
 import React from 'react';
 import { dep } from 'worona-deps';
 import { connect } from 'react-redux';
-import { Route, IndexRedirect, Redirect } from 'react-router';
+import { Route, IndexRoute } from 'react-router';
 import CssLoader from '../components/CssLoader';
 import * as deps from '../deps';
 
@@ -35,43 +35,11 @@ class Entry extends React.Component {
     }
   }
 }
-// Entry = connect(mapStateToProps)(Entry);
 
-const requireAuth = (store) => (nextState, replace) => {
-  const accounts = store.getState().accounts;
-  if (!accounts || !accounts.isLoggedIn) {
-    replace({
-      pathname: '/register',
-      query: { ...nextState.location.query, next: nextState.location.pathname },
-    });
-  }
-};
-
-const dontRequireAuth = (store) => (nextState, replace) => {
-  const accounts = store.getState().accounts;
-  if (accounts && accounts.isLoggedIn) replace({ pathname: '/sites' });
-};
-
-export const routes = (store) => (
+export const routes = () => (
   <Route path="/" component={ThemeLoader} >
-    <IndexRedirect to="/register" />
-    <Route path="login" component={Entry} wrapped="Login" onEnter={dontRequireAuth(store)} />
-    <Route path="register" component={Entry} wrapped="Register" onEnter={dontRequireAuth(store)} />
-    <Route path="add-site" component={Entry} wrapped="AddSite" onEnter={requireAuth(store)} />
-    <Route
-      path="check-site/:siteId" component={Entry} wrapped="CheckSite" onEnter={requireAuth(store)}
-    />
-    <Route
-      path="edit-site/:siteId" component={Entry} wrapped="EditSite" onEnter={requireAuth(store)}
-    />
-    <Route path="sites" component={Entry} wrapped="Sites" onEnter={requireAuth(store)} />
-    <Redirect from="/site/:siteId" to="/site/:siteId/app" />
-    <Redirect from="/site/:siteId/app" to="/site/:siteId/app/general-app-extension-worona" />
-    <Redirect from="/site/:siteId/fbia" to="/site/:siteId/fbia/general-fbia-extension-worona" />
-    <Route
-      path="/site/:siteId/:service/:packageName" component={Entry} wrapped="SiteHome"
-      onEnter={requireAuth(store)}
-    />
+    <IndexRoute component={Entry} wrapped="Home" />
+    <Route path="*" component={Entry} wrapped="Home" />
   </Route>
 );
 
