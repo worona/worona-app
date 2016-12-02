@@ -10,12 +10,6 @@ packageDevelopment({
     name: pkgJson.name,
     id: pkgJson.name,
     namespace: pkgJson.worona.namespace,
-    niceName: pkgJson.worona.niceName,
-    type: pkgJson.worona.type,
-    menu: {
-      category: 'Development',
-      order: 10,
-    },
     services: pkgJson.worona.services,
   },
   ...pkg,

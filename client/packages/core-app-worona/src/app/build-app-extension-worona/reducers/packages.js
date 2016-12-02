@@ -7,31 +7,31 @@ import * as types from '../types';
 const developmentPackages = getDevelopmentPackages();
 
 const defaultList = {
-  'build-dashboard-extension-worona': {
-    name: 'build-dashboard-extension-worona',
+  'build-app-extension-worona': {
+    name: 'build-app-extension-worona',
     namespace: 'build',
   },
-  'loading-dashboard-theme-worona': {
-    name: 'loading-dashboard-theme-worona',
+  'loading-app-theme-worona': {
+    name: 'loading-app-theme-worona',
     namespace: 'theme',
   },
-  'routing-dashboard-extension-worona': {
-    name: 'routing-dashboard-extension-worona',
+  'routing-app-extension-worona': {
+    name: 'routing-app-extension-worona',
     namespace: 'routing',
   },
 };
 
 const defaultDownloaded = [
   ...map(developmentPackages, item => item.name),
-  'build-dashboard-extension-worona',
-  'loading-dashboard-theme-worona',
-  'routing-dashboard-extension-worona',
+  'build-app-extension-worona',
+  'loading-app-theme-worona',
+  'routing-app-extension-worona',
 ];
 
 const defaultActivated = {
-  build: 'build-dashboard-extension-worona',
-  routing: 'routing-dashboard-extension-worona',
-  theme: 'loading-dashboard-theme-worona',
+  build: 'build-app-extension-worona',
+  routing: 'routing-app-extension-worona',
+  theme: 'loading-app-theme-worona',
 };
 
 export const list = (state = defaultList, action) => {

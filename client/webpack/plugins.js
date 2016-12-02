@@ -107,7 +107,7 @@ var htmlWebpackPlugin = function(config) {
   var vendors = require('../dist/vendors-' + config.entrie + '-worona/' + config.entrie + '/' + config.env + '/files.json')
   return new HtmlWebpackPlugin({
     inject: false,
-    title: 'Worona Dashboard (DEV)',
+    title: 'Worona App (DEV)',
     template: path.resolve('html', 'index.html'),
     favicon: path.resolve('html', 'favicon.png'),
     vendorsFile: vendors.main.file,
