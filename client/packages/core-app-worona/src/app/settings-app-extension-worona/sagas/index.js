@@ -26,7 +26,7 @@ export function* retrieveSettings() {
       values,
       concat(res.body),
       map(setting => setting.woronaInfo),
-      filter(woronaInfo => !!woronaInfo.main),
+      filter(woronaInfo => woronaInfo.name !== 'site-general-settings'),
       uniqBy(pkg => pkg.namespace)
     )(devPkgs);
     // Inform that the API call was successful.
