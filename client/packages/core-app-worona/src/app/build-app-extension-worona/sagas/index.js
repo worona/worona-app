@@ -3,7 +3,7 @@ import request from 'superagent';
 import { isDev, getDevelopmentPackages } from 'worona-deps';
 import { takeEvery } from 'redux-saga';
 import { put, fork, call, select } from 'redux-saga/effects';
-import { toArray } from 'lodash';
+import { toArray, uniqBy } from 'lodash';
 import * as actions from '../actions';
 import * as types from '../types';
 import * as selectors from '../selectors';
@@ -23,7 +23,10 @@ export function* retrieveSettings() {
     const settings = res.body;
     // Extract the packages info from settings.
     const devPkgs = getDevelopmentPackages();
-    const pkgs = settings.concat(toArray(devPkgs)).map(setting => setting.woronaInfo);
+    const pkgs = uniqBy(
+      toArray(devPkgs).concat(settings).map(setting => setting.woronaInfo),
+      pkg => pkg.namespace
+    );
     // Inform that the API call was successful.
     yield put(actions.appSettingsSucceed({ settings, pkgs }));
     // Start activation for each downloaded package.
