@@ -6,10 +6,11 @@ import { isTest } from 'worona-deps';
 import { reduxReactRouter, routerStateReducer as router } from 'redux-router';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import build from '../reducers';
+import settings from '../../settings-app-extension-worona/reducers';
 
 const sagaMiddleware = createSagaMiddleware();
 
-const reducers = { build: build(), router };
+const reducers = { build: build(), router, settings: settings() };
 const sagas = {};
 
 const composeEnhancers = composeWithDevTools({
@@ -31,7 +32,7 @@ export default store;
 export const dispatch = action => store.dispatch(action);
 export const reloadReducers = () => store.replaceReducer(combineReducers(reducers));
 export const addReducer = (namespace, reducer) => { if (reducer) reducers[namespace] = reducer; };
-export const removeReducer = namespace => { if (reducers[namespace]) delete reducers[namespace]; };
+export const removeReducer = (namespce) => { if (reducers[namespce]) delete reducers[namespce]; };
 export const startSaga = (namespace, saga) => { sagas[namespace] = sagaMiddleware.run(saga); };
 export const stopSaga = (namespace) => { if (sagas[namespace]) sagas[namespace].cancel(); };
 export const getState = store.getState.bind(store);
