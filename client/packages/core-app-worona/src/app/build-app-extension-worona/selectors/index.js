@@ -16,5 +16,3 @@ export const getActivatedPackage = pkgNamespace => createSelector(
   getActivatedPackages,
   pkgs => pkgs[pkgNamespace] !== -1
 );
-
-export const getSiteId = () => 'xd5BZhxcyC3c8YPMX';

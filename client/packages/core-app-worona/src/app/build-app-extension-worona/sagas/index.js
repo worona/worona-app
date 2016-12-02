@@ -1,9 +1,6 @@
 /* eslint-disable no-constant-condition, array-callback-return */
-import request from 'superagent';
-import { isDev, getDevelopmentPackages } from 'worona-deps';
 import { takeEvery } from 'redux-saga';
 import { put, fork, call, select } from 'redux-saga/effects';
-import { toArray, uniqBy } from 'lodash';
 import * as actions from '../actions';
 import * as types from '../types';
 import * as selectors from '../selectors';
@@ -11,30 +8,6 @@ import download from './download';
 import load from './load';
 import assets from './assets';
 import { waitFor } from './waitFor';
-
-export function* retrieveSettings() {
-  yield put(actions.appSettingsRequested());
-  const siteId = yield select(selectors.getSiteId);
-  try {
-    // Call the API.
-    const env = isDev ? 'dev' : 'prod';
-    const res = yield call(request.get,
-      `https://cdn.worona.io/api/v1/settings/site/${siteId}/app/${env}/live`);
-    const settings = res.body;
-    // Extract the packages info from settings.
-    const devPkgs = getDevelopmentPackages();
-    const pkgs = uniqBy(
-      toArray(devPkgs).concat(settings).map(setting => setting.woronaInfo),
-      pkg => pkg.namespace
-    );
-    // Inform that the API call was successful.
-    yield put(actions.appSettingsSucceed({ settings, pkgs }));
-    // Start activation for each downloaded package.
-    yield toArray(pkgs).map(pkg => put(actions.packageActivationRequested({ pkg })));
-  } catch (error) {
-    yield put(actions.appSettingsFailed());
-  }
-}
 
 export function* packageActivationSaga({ pkg }) {
   try {
@@ -67,6 +40,5 @@ export default function* sagas() {
     fork(load),
     fork(assets),
     takeEvery(types.PACKAGE_ACTIVATION_REQUESTED, packageActivationSaga),
-    fork(retrieveSettings),
   ];
 }

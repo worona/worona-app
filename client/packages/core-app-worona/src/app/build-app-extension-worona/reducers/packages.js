@@ -6,41 +6,19 @@ import * as types from '../types';
 
 const developmentPackages = getDevelopmentPackages();
 
-const defaultList = {
-  'build-app-extension-worona': {
-    name: 'build-app-extension-worona',
-    namespace: 'build',
-  },
-  'loading-app-theme-worona': {
-    name: 'loading-app-theme-worona',
-    namespace: 'theme',
-  },
-  'routing-app-extension-worona': {
-    name: 'routing-app-extension-worona',
-    namespace: 'routing',
-  },
-};
-
 const defaultDownloaded = [
   ...map(developmentPackages, item => item.name),
   'build-app-extension-worona',
   'loading-app-theme-worona',
   'routing-app-extension-worona',
+  'settings-app-extension-worona',
 ];
 
 const defaultActivated = {
   build: 'build-app-extension-worona',
   routing: 'routing-app-extension-worona',
   theme: 'loading-app-theme-worona',
-};
-
-export const list = (state = defaultList, action) => {
-  switch (action.type) {
-    case types.CORE_PACKAGES_SUCCEED:
-      return update(state, { $merge: action.pkgs });
-    default:
-      return state;
-  }
+  settings: 'settings-app-theme-worona',
 };
 
 export const downloaded = (state = defaultDownloaded, action) => {
@@ -62,7 +40,6 @@ export const activated = (state = defaultActivated, { type, pkg }) => {
 };
 
 export default combineReducers({
-  list,
   downloaded,
   activated,
 });

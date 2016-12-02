@@ -1,12 +1,5 @@
 import * as types from '../types';
 
-export const appSettingsRequested = () =>
-  ({ type: types.APP_SETTINGS_REQUESTED });
-export const appSettingsSucceed = ({ settings, pkgs }) =>
-  ({ type: types.APP_SETTINGS_SUCCEED, settings, pkgs });
-export const appSettingsFailed = ({ error }) =>
-  ({ type: types.APP_SETTINGS_FAILED, error });
-
 export const packageActivationRequested = ({ pkg }) =>
   ({ type: types.PACKAGE_ACTIVATION_REQUESTED, pkg });
 export const packageActivationSucceed = ({ pkg }) =>
