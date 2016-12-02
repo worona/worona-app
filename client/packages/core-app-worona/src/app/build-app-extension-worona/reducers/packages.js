@@ -19,6 +19,10 @@ const defaultList = {
     name: 'routing-app-extension-worona',
     namespace: 'routing',
   },
+  'settings-app-extension-worona': {
+    name: 'settings-app-extension-worona',
+    namespace: 'settings',
+  },
 };
 
 const defaultDownloaded = [
@@ -26,12 +30,14 @@ const defaultDownloaded = [
   'build-app-extension-worona',
   'loading-app-theme-worona',
   'routing-app-extension-worona',
+  'settings-app-extension-worona',
 ];
 
 const defaultActivated = {
   build: 'build-app-extension-worona',
   routing: 'routing-app-extension-worona',
   theme: 'loading-app-theme-worona',
+  settings: 'settings-app-theme-worona',
 };
 
 export const list = (state = defaultList, action) => {
