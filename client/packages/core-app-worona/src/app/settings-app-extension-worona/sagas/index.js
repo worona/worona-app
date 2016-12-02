@@ -2,8 +2,8 @@
 import request from 'superagent';
 import { put, fork, call, select } from 'redux-saga/effects';
 import { isDev, getDevelopmentPackages } from 'worona-deps';
-import { toArray, uniqBy } from 'lodash';
-import { flow, keyBy, mapValues } from 'lodash/fp';
+import { toArray } from 'lodash';
+import { flow, values, concat, map, filter, keyBy, mapValues, uniqBy } from 'lodash/fp';
 import * as actions from '../actions';
 import * as selectors from '../selectors';
 import * as deps from '../deps';
@@ -22,10 +22,13 @@ export function* retrieveSettings() {
     )(res.body);
     // Extract the packages info from settings.
     const devPkgs = getDevelopmentPackages();
-    const pkgs = uniqBy(
-      toArray(devPkgs).concat(res.body).map(setting => setting.woronaInfo),
-      pkg => pkg.namespace
-    );
+    const pkgs = flow(
+      values,
+      concat(res.body),
+      map(setting => setting.woronaInfo),
+      filter(woronaInfo => !!woronaInfo.main),
+      uniqBy(pkg => pkg.namespace)
+    )(devPkgs);
     // Inform that the API call was successful.
     yield put(actions.appSettingsSucceed({ settings, pkgs }));
     // Start activation for each downloaded package.
