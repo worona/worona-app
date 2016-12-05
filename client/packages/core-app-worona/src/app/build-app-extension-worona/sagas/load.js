@@ -33,7 +33,6 @@ export function* packageLoadSaga({ pkg }) {
       ];
     }
     yield put(actions.packageLoadSucceed({ pkg }));
-    console.log('loaded: ' + pkg.name);
     yield call(packageActivated, pkg.name);
   } catch (error) {
     yield put(actions.packageLoadFailed({ error, pkg }));
