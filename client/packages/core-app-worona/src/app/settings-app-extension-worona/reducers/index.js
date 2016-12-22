@@ -10,4 +10,6 @@ export const collection = (state = {}, action) => {
   }
 };
 
-export default () => combineReducers({ collection });
+export default () => combineReducers({
+  collection,
+});

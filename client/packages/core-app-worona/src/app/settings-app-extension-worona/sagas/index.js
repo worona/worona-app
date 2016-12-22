@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import request from 'superagent';
+import { takeLatest } from 'redux-saga';
 import { put, fork, call, select } from 'redux-saga/effects';
 import { isDev, getDevelopmentPackages } from 'worona-deps';
 import { toArray } from 'lodash';
@@ -8,9 +9,8 @@ import * as actions from '../actions';
 import * as selectors from '../selectors';
 import * as deps from '../deps';
 
-export function* retrieveSettings() {
+export function* retrieveSettings({ siteId }) {
   yield put(actions.appSettingsRequested());
-  const siteId = yield select(selectors.getSiteId);
   try {
     // Call the API.
     const env = isDev ? 'dev' : 'prod';
@@ -40,6 +40,6 @@ export function* retrieveSettings() {
 
 export default function* settingsSagas() {
   yield [
-    fork(retrieveSettings),
+    takeLatest(deps.types.SITE_ID_CHANGED, retrieveSettings),
   ];
 }

@@ -3,14 +3,15 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { isTest } from 'worona-deps';
-import { reduxReactRouter, routerStateReducer as router } from 'redux-router';
+import { reduxReactRouter } from 'redux-router';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import build from '../reducers';
 import settings from '../../settings-app-extension-worona/reducers';
+import router from '../../router-app-extension-worona/reducers';
 
 const sagaMiddleware = createSagaMiddleware();
 
-const reducers = { build: build(), router, settings: settings() };
+const reducers = { build: build(), router: router(), settings: settings() };
 const sagas = {};
 
 const composeEnhancers = composeWithDevTools({

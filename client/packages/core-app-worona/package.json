@@ -21,21 +21,17 @@
   },
   "homepage": "https://github.com/worona/worona-app#readme",
   "worona": {
-    "niceName": "Core",
-    "slug": "core",
-    "namespace": "core",
-    "type": "core",
-    "services": [
-      "app"
-    ],
     "authors": [
-      "luis@worona.org"
+      "luis@worona.org",
+      "abel@worona.org"
     ],
-    "default": 1,
-    "core": 1,
-    "listed": 0,
-    "deactivable": 0,
-    "public": 1
+    "private": false,
+    "app": {
+      "type": "core",
+      "namespace": "core",
+      "default": false,
+      "core": false
+    }
   },
   "devDependencies": {},
   "dependencies": {

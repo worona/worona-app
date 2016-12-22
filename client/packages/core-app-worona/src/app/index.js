@@ -42,6 +42,7 @@ class App extends React.Component {
 
 startSaga('build', build.sagas.default);
 startSaga('settings', settings.sagas.default);
+startSaga('router', router.sagas.default);
 
 if ('ontouchstart' in window) {
   window.addEventListener('load', () => FastClick.attach(document.body));

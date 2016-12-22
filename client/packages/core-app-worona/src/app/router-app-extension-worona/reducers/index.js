@@ -1,6 +1,7 @@
-import { combineReducers } from 'redux';
-import { routerStateReducer as router } from 'redux-router';
+import { routerStateReducer } from 'redux-router';
+import * as types from '../types';
 
-export default combineReducers({
-  router,
-});
+export default () => (state, action) => {
+  if (action.type === types.SITE_ID_CHANGED) return { ...state, siteId: action.siteId };
+  return routerStateReducer(state, action);
+};
