@@ -14,7 +14,6 @@ export function* retrieveSettings({ siteId }) {
   try {
     // Call the API.
     const env = isDev ? 'dev' : 'prod';
-    debugger;
     const res = yield call(request.get,
       `https://cdn.worona.io/api/v1/settings/site/${siteId}/app/${env}/live`);
     const settings = flow(
