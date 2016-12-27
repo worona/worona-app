@@ -10,9 +10,6 @@ import * as i18n from './i18n';
 
 const locales = lang => require(`./locales/${lang}.json`);
 
-export const name = 'build-app-extension-worona';
-export const namespace = 'build';
-
 export {
   actions,
   types,

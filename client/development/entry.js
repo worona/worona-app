@@ -4,15 +4,8 @@ import pkgJson from './test-development-package-worona/package.json';
 import * as pkg from './test-development-package-worona/src/app';
 
 packageDevelopment({
-  name: pkgJson.name,
-  namespace: pkgJson.worona.namespace,
-  woronaInfo: {
-    name: pkgJson.name,
-    id: pkgJson.name,
-    namespace: pkgJson.worona.namespace,
-    services: pkgJson.worona.services,
-  },
+  woronaInfo: { ...pkgJson.worona, name: pkgJson.name, namespace: pkgJson.worona.app.namespace },
   ...pkg,
-});
+}, pkgJson.name, pkgJson.worona.app.namespace);
 
 console.log('test-development-package-worona loaded!');

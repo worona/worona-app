@@ -23,24 +23,15 @@
   },
   "homepage": "https://github.com/worona/worona#readme",
   "worona": {
-    "niceName": "Test Develoment Package",
-    "slug": "testDevelopmentPackage",
-    "namespace": "development",
-    "type": "extension",
-    "services": [
-      "dashboard",
-      "app",
-      "fbia",
-      "amp"
-    ],
     "authors": [
       "luis@worona.org"
     ],
-    "default": 0,
-    "core": 0,
-    "listed": 0,
-    "deactivable": 0,
-    "public": 1
+    "private": false,
+    "app": {
+      "namespace": "development",
+      "type": "extension",
+      "default": false
+    }
   },
   "devDependencies": {},
   "dependencies": {}

@@ -53,7 +53,7 @@ switch (config.type) {
         extensions: ['', '.js', '.jsx'],
         modulesDirectories: [
           'node_modules',
-          'packages/core-' + config.entrie + '-worona/node_modules',
+          'packages/vendors-' + config.entrie + '-worona/node_modules',
         ],
       },
       // devtool: '#eval-source-map',

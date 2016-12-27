@@ -11,10 +11,10 @@ import * as build from './build-app-extension-worona';
 import * as router from './router-app-extension-worona';
 import * as settings from './settings-app-extension-worona';
 
-packageDownloaded(build);
-packageDownloaded(loading);
-packageDownloaded(router);
-packageDownloaded(settings);
+packageDownloaded(build, 'build-app-extension-worona', 'build');
+packageDownloaded(loading, 'loading-app-theme-worona', 'theme');
+packageDownloaded(router, 'router-app-extension-worona', 'router');
+packageDownloaded(settings, 'settings-app-extension-worona', 'settings');
 packageActivated('build-app-extension-worona');
 packageActivated('loading-app-theme-worona');
 packageActivated('router-app-extension-worona');
