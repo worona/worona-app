@@ -42,7 +42,6 @@ process.on('unhandledRejection', (err) => {
 
 const start = async () => {
   await publish({ folder: 'packages' });
-  await publish({ folder: 'development' });
   console.log('\n');
 };
 
