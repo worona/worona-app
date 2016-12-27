@@ -17,7 +17,7 @@ switch (config.type) {
       plugins.statsWriterPlugin(config),
     ].filter(function(plugin) { return typeof plugin !== 'undefined'; });
     module.exports = {
-      entry: { main: require('./packages/core-' + config.entrie + '-worona/vendors.json') },
+      entry: { main: require('./packages/vendors-' + config.entrie + '-worona/vendors.json') },
       output: output.vendors(config),
       plugins: pluginsArr,
     };
