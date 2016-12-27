@@ -3,9 +3,11 @@ import { packageDevelopment } from 'worona-deps';
 import pkgJson from './test-development-package-worona/package.json';
 import * as pkg from './test-development-package-worona/src/app';
 
+const namespace = pkgJson.worona.app.namespace;
+
 packageDevelopment({
-  woronaInfo: { ...pkgJson.worona, name: pkgJson.name, namespace: pkgJson.worona.app.namespace },
+  woronaInfo: { name: pkgJson.name, namespace },
   ...pkg,
-}, pkgJson.name, pkgJson.worona.app.namespace);
+}, pkgJson.name, namespace);
 
 console.log('test-development-package-worona loaded!');

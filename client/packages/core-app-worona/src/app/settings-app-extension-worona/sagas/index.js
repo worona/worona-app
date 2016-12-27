@@ -22,12 +22,12 @@ export function* retrieveSettings({ siteId }) {
     )(res.body);
     // Extract the packages info from settings.
     const devPkgs = getDevelopmentPackages();
+    const devNamespaces = toArray(devPkgs).map(pkg => pkg.namespace);
     const pkgs = flow(
       values,
-      concat(res.body),
-      map(setting => setting.woronaInfo),
-      filter(woronaInfo => woronaInfo.name !== 'site-general-settings'),
-      uniqBy(pkg => pkg.namespace)
+      concat(res.body.filter(pkg => devNamespaces.indexOf(pkg.woronaInfo.namespace) === -1)),
+      map(setting => ({ ...setting.woronaInfo.app, ...setting.woronaInfo })),
+      filter(pkg => pkg.name !== 'site-general-settings')
     )(devPkgs);
     // Inform that the API call was successful.
     yield put(actions.appSettingsSucceed({ settings, pkgs }));
