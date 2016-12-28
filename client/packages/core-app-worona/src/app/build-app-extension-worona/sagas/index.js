@@ -1,6 +1,6 @@
 /* eslint-disable no-constant-condition, array-callback-return */
 import { takeEvery } from 'redux-saga';
-import { put, fork, call, select } from 'redux-saga/effects';
+import { put, fork, call, select, join } from 'redux-saga/effects';
 import * as actions from '../actions';
 import * as types from '../types';
 import * as selectors from '../selectors';
@@ -19,18 +19,26 @@ export function* packageActivationSaga({ pkg }) {
     }
     // Deactivation of previous package phase.
     const activated = yield select(selectors.getActivatedPackages);
-    const previousPackage = activated[pkg.namespace];
-    if (previousPackage) {
-      yield put(actions.packageDeactivationRequested({ previousPackage }));
-      yield call(waitFor, previousPackage.name,
-        types.PACKAGE_DEACTIVATION_SUCCEED, types.PACKAGE_DEACTIVATION_FAILED);
+    const previousPackageName = activated[pkg.namespace];
+    if (previousPackageName === pkg.name) {
+      // The same package is already activated.
+      yield put(actions.packageActivationFailed({ error: 'Package already activated.', pkg }));
+    } else {
+      if (previousPackageName) {
+        // A previous package with the same namespace is activated.
+        const waitForDeactivation = yield fork(waitFor, previousPackageName,
+          types.PACKAGE_DEACTIVATION_SUCCEED, types.PACKAGE_DEACTIVATION_FAILED);
+        yield put(actions.packageDeactivationRequested(
+          { pkg: { name: previousPackageName, namespace: pkg.namespace } }));
+        yield join(waitForDeactivation);
+      }
+      // Load phase.
+      yield put(actions.packageLoadRequested({ pkg }));
+      yield call(waitFor, pkg.name, types.PACKAGE_LOAD_SUCCEED, types.PACKAGE_LOAD_FAILED);
+      yield put(actions.packageActivationSucceed({ pkg }));
     }
-    // Load phase.
-    yield put(actions.packageLoadRequested({ pkg }));
-    yield call(waitFor, pkg.name, types.PACKAGE_LOAD_SUCCEED, types.PACKAGE_LOAD_FAILED);
-    yield put(actions.packageActivationSucceed({ pkg }));
   } catch (error) {
-    yield put(actions.packageActivationFailed({ error: error.message, pkg }));
+    yield put(actions.packageActivationFailed({ error, pkg }));
   }
 }
 
