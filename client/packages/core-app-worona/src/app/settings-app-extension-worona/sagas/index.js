@@ -14,8 +14,10 @@ export function* retrieveSettings({ siteId }) {
   try {
     // Call the API.
     const env = isDev ? 'dev' : 'prod';
+    const isPreview = yield select(deps.selectors.getPreview);
+    const preview = isPreview ? 'preview' : 'live';
     const res = yield call(request.get,
-      `https://cdn.worona.io/api/v1/settings/site/${siteId}/app/${env}/live`);
+      `https://cdn.worona.io/api/v1/settings/site/${siteId}/app/${env}/${preview}`);
     const settings = flow(
       keyBy(setting => setting.woronaInfo.namespace),
       mapValues((setting) => { const { woronaInfo, ...rest } = setting; return rest; })
