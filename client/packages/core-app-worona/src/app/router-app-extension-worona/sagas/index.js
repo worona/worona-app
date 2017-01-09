@@ -10,8 +10,15 @@ export function* siteIdChangedSaga(action) {
   if (newSiteId !== currentSiteId) yield put(actions.siteIdChanged({ siteId: newSiteId }));
 }
 
+export function* previewSaga() {
+  yield put(actions.isPreview());
+}
+
 export default function* routerSagas() {
   yield [
+    takeEvery(({ type, payload }) =>
+    type === types.ROUTER_DID_CHANGE && payload.location.query.preview === 'true',
+    previewSaga),
     takeEvery(({ type, payload }) =>
       type === types.ROUTER_DID_CHANGE && payload.location.query.siteId, siteIdChangedSaga),
   ];
