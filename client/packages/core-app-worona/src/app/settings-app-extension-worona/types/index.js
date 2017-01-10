@@ -2,4 +2,4 @@ export const APP_SETTINGS_REQUESTED = 'settings/APP_SETTINGS_REQUESTED';
 export const APP_SETTINGS_SUCCEED = 'settings/APP_SETTINGS_SUCCEED';
 export const APP_SETTINGS_FAILED = 'settings/APP_SETTINGS_FAILED';
 
-export const SETTING_UPDATED = 'settings/SETTING_UPDATED';
+export const SETTINGS_UPDATED = 'settings/SETTINGS_UPDATED';
