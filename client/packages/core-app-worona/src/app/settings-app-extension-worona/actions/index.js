@@ -7,5 +7,5 @@ export const appSettingsSucceed = ({ settings, pkgs }) =>
 export const appSettingsFailed = ({ error }) =>
   ({ type: types.APP_SETTINGS_FAILED, error });
 
-export const settingUpdated = ({ _id, namespace, fields }) =>
-  ({ type: types.SETTING_UPDATED, _id, namespace, fields });
+export const settingsUpdated = ({ _id, namespace, fields }) =>
+  ({ type: types.SETTINGS_UPDATED, _id, namespace, fields });
