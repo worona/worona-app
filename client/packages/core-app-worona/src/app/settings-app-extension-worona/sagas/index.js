@@ -29,7 +29,7 @@ export function* retrieveSettings({ siteId }) {
       values,
       concat(res.body.filter(pkg => devNamespaces.indexOf(pkg.woronaInfo.namespace) === -1)),
       map(setting => ({ ...setting.woronaInfo.app, ...setting.woronaInfo })),
-      filter(pkg => pkg.name !== 'site-general-settings')
+      filter(pkg => pkg.name !== 'site-general-settings-worona')
     )(devPkgs);
     // Inform that the API call was successful.
     yield put(actions.appSettingsSucceed({ settings, pkgs }));
