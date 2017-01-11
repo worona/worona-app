@@ -15,7 +15,7 @@ const reducers = { build: build(), router: router(), settings: settings() };
 const sagas = {};
 
 const composeEnhancers = composeWithDevTools({
-  serializeState: false,
+  serialize: false,
 });
 
 export const store = createStore(
