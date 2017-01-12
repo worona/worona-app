@@ -1,6 +1,6 @@
 {
   "name": "vendors-app-worona",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "Vendors Package of Worona App",
   "scripts": {},
   "repository": {
@@ -23,12 +23,9 @@
       "luis@worona.org",
       "abel@worona.org"
     ],
-    "private": false,
     "app": {
       "type": "vendors",
-      "namespace": "vendors",
-      "default": false,
-      "core": false
+      "namespace": "vendors"
     }
   },
   "devDependencies": {},
