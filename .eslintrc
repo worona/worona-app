@@ -4,6 +4,11 @@
     "import/no-extraneous-dependencies": 0,
     "import/no-unresolved": 0,
     "import/extensions": 0,
-    "no-underscore-dangle": ["error", { "allow": [ "_id" ] }]
+    "no-underscore-dangle": ["error", { "allow": [ "_id" ] }],
+    "array-bracket-spacing": 0,
+    "curly": 0,
+    "semi": 0,
+    "arrow-parens": ["error", "as-needed", { "requireForBlockBody": false }],
+    "generator-star-spacing": 0
   }
 }
