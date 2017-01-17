@@ -7,6 +7,9 @@ export const packageActivationSucceed = ({ pkg }) =>
 export const packageActivationFailed = ({ error, pkg }) =>
   ({ type: types.PACKAGE_ACTIVATION_FAILED, error, pkg });
 
+export const initialPackagesActivated = ({ pkgs }) =>
+  ({ type: types.INITIAL_PACKAGES_ACTIVATED, pkgs });
+
 export const packageDeactivationRequested = ({ pkg }) =>
   ({ type: types.PACKAGE_DEACTIVATION_REQUESTED, pkg });
 export const packageDeactivationSucceed = ({ pkg }) =>
@@ -16,15 +19,12 @@ export const packageDeactivationFailed = ({ error, pkg }) =>
 
 export const packageDownloadRequested = ({ pkg }) =>
   ({ type: types.PACKAGE_DOWNLOAD_REQUESTED, pkg });
-export const packageDownloadSucceed = ({ pkg }) =>
-  ({ type: types.PACKAGE_DOWNLOAD_SUCCEED, pkg });
+export const packageDownloadSucceed = ({ pkg }) => ({ type: types.PACKAGE_DOWNLOAD_SUCCEED, pkg });
 export const packageDownloadFailed = ({ error, pkg }) =>
   ({ type: types.PACKAGE_DOWNLOAD_FAILED, error, pkg });
 
-export const packageLoadRequested = ({ pkg }) =>
-  ({ type: types.PACKAGE_LOAD_REQUESTED, pkg });
-export const packageLoadSucceed = ({ pkg }) =>
-  ({ type: types.PACKAGE_LOAD_SUCCEED, pkg });
+export const packageLoadRequested = ({ pkg }) => ({ type: types.PACKAGE_LOAD_REQUESTED, pkg });
+export const packageLoadSucceed = ({ pkg }) => ({ type: types.PACKAGE_LOAD_SUCCEED, pkg });
 export const packageLoadFailed = ({ error, pkg }) =>
   ({ type: types.PACKAGE_LOAD_FAILED, error, pkg });
 
