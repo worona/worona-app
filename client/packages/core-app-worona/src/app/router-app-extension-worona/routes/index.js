@@ -22,7 +22,7 @@ class ThemeLoaderClass extends React.Component {
 }
 const ThemeLoader = connect(mapStateToProps)(ThemeLoaderClass);
 
-class Entry extends React.Component {
+class EntryClass extends React.Component {
   render() {
     try {
       const Component = dep('theme', 'components', this.props.component);
@@ -33,7 +33,8 @@ class Entry extends React.Component {
     }
   }
 }
-Entry.propTypes = { component: React.PropTypes.string };
+EntryClass.propTypes = { component: React.PropTypes.string };
+const Entry = connect(mapStateToProps)(EntryClass);
 
 class Content extends React.Component {
   constructor() {
