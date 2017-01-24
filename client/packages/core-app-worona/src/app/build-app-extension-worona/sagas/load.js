@@ -32,8 +32,8 @@ export function* packageLoadSaga({ pkg }) {
         put(actions.packageAssetsLoadRequested({ pkg })),
       ];
     }
-    yield put(actions.packageLoadSucceed({ pkg }));
     yield call(packageActivated, pkg.name);
+    yield put(actions.packageLoadSucceed({ pkg }));
   } catch (error) {
     yield put(actions.packageLoadFailed({ error, pkg }));
     throw error;
