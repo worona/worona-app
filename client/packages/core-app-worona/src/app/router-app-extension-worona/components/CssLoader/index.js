@@ -29,7 +29,7 @@ const mapDispatchToProps = (dispatch, { path, pkgName }) => ({
 const LinkCss = connect(null, mapDispatchToProps)(LinkCssClass);
 
 const CssLoader = ({ cssAssets }) => {
-  const cdn = isRemote ? 'https://cdn.worona.io/packages/' : 'http://localhost:4000/packages/';
+  const cdn = 'https://cdn.worona.io/packages/';
   return (
     <div>
       {cssAssets.map(asset =>
