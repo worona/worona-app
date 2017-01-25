@@ -1,10 +1,12 @@
 /* eslint-disable react/prefer-stateless-function, react/no-multi-comp, react/prop-types
-eslint-disable prefer-template, react/prefer-es6-class, react/jsx-filename-extension, camelcase */
+eslint-disable prefer-template, react/prefer-es6-class, react/jsx-filename-extension, camelcase,
+react/no-unused-prop-types */
 import React from 'react';
 import { dep } from 'worona-deps';
 import { connect } from 'react-redux';
 import { Route, IndexRoute } from 'react-router';
 import CssLoader from '../components/CssLoader';
+import * as selectors from '../selectors';
 import * as deps from '../deps';
 
 const mapStateToProps = state => ({ themeName: deps.selectors.getThemeName(state) });
@@ -36,53 +38,44 @@ class EntryClass extends React.Component {
 EntryClass.propTypes = { component: React.PropTypes.string };
 const Entry = connect(mapStateToProps)(EntryClass);
 
-class Content extends React.Component {
-  constructor() {
-    super();
-    this.state = { component: 'Home' };
-  }
+const ContentClass = ({ query }) => {
+  let component = 'Home';
+  if (query.p)
+    component = 'Post';
+  else if (query.cat)
+    component = 'Category';
+  else if (query.tag)
+    component = 'Tag';
+  else if (query.author)
+    component = 'Author';
+  else if (query.y || query.m)
+    component = 'Archive';
+  else if (query.page_id)
+    component = 'Page';
+  else if (query.s)
+    component = 'Search';
+  else if (query.attachment_id)
+    component = 'Attachment';
 
-  componentWillMount() {
-    const { p, cat, tag, author, y, m, page_id, s, attachment_id } = this.props.location.query;
-    if (p)
-      this.setState({ component: 'Post' });
-    else if (cat)
-      this.setState({ component: 'Category' });
-    else if (tag)
-      this.setState({ component: 'Tag' });
-    else if (author)
-      this.setState({ component: 'Author' });
-    else if (y || m)
-      this.setState({ component: 'Archive' });
-    else if (page_id)
-      this.setState({ component: 'Page' });
-    else if (s)
-      this.setState({ component: 'Search' });
-    else if (attachment_id)
-      this.setState({ component: 'Attachment' });
-    else
-      this.setState({ component: 'Home' });
-  }
-
-  render() {
-    return <Entry component={this.state.component} />;
-  }
+  return <Entry component={component} />;
 }
-Content.propTypes = {
-  location: React.PropTypes.shape({
-    query: React.PropTypes.shape({
-      p: React.PropTypes.string,
-      cat: React.PropTypes.string,
-      tag: React.PropTypes.string,
-      author: React.PropTypes.string,
-      y: React.PropTypes.string,
-      m: React.PropTypes.string,
-      page_id: React.PropTypes.string,
-      s: React.PropTypes.string,
-      attachment_id: React.PropTypes.string,
-    }),
+ContentClass.propTypes = {
+  query: React.PropTypes.shape({
+    p: React.PropTypes.string,
+    cat: React.PropTypes.string,
+    tag: React.PropTypes.string,
+    author: React.PropTypes.string,
+    y: React.PropTypes.string,
+    m: React.PropTypes.string,
+    page_id: React.PropTypes.string,
+    s: React.PropTypes.string,
+    attachment_id: React.PropTypes.string,
   }),
 };
+const mapStateToContentProps = state => ({
+  query: selectors.getURLQueries(state),
+});
+const Content = connect(mapStateToContentProps)(ContentClass);
 
 export const routes = () => (
   <Route path="/" component={ThemeLoader}>
@@ -91,19 +84,4 @@ export const routes = () => (
   </Route>
 );
 
-// export const routes = () => (
-//   <Route path="/" component={ThemeLoader}>
-//     <IndexRoute component={Entry} wrapped="Home" />
-//     <Route path="category/:category1" component={Entry} wrapped="Category" />
-//     <Route
-//       path="category/:category1(/:category2)(/:category3)(/:category4)"
-//       component={Entry}
-//       wrapped="Category"
-//     />
-//     <Route path="tag/:tag" component={Entry} wrapped="Tag" />
-//     <Route path="author/:author" component={Entry} wrapped="Author" />
-//     <Route path=":content1" component={Content} />
-//     <Route path="*" component={Entry} wrapped="Home" />
-//   </Route>
-// );
 export default routes;
