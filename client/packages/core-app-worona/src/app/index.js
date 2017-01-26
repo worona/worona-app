@@ -29,14 +29,19 @@ import { Provider } from 'react-redux';
 import { I18nextProvider } from 'react-i18next';
 import { store, startSaga } from './build-app-extension-worona/store';
 import FastClick from 'fastclick';
+import { applyRouterMiddleware } from 'react-router';
 import { ReduxRouter } from 'redux-router';
+import { useScroll } from 'react-router-scroll';
 
 class App extends React.Component {
   render() {
     return (
       <I18nextProvider i18n={build.i18n.default}>
         <Provider store={store}>
-          <ReduxRouter routes={router.routes.default(store)} />
+          <ReduxRouter
+            RoutingContext={applyRouterMiddleware(useScroll())}
+            routes={router.routes.default(store)}
+          />
         </Provider>
       </I18nextProvider>
     );
