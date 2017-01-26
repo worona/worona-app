@@ -17,6 +17,5 @@
   "worona-deps",
   "superagent",
   "normalizr",
-  "stringify-error-message",
-  "cheerio"
+  "stringify-error-message"
 ]
