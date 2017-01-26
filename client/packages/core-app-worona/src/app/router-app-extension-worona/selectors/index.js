@@ -7,3 +7,5 @@ export const getURLQueries = state => state.router.location.query;
 
 export const getSiteId = state => state.router.siteId;
 export const getPreview = state => state.router.preview === true;
+
+export const getHistoryLength = state => state.router.historyLength;
