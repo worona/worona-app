@@ -5,6 +5,7 @@ import * as types from './types';
 import * as selectors from './selectors';
 import * as sagas from './sagas';
 import * as deps from './deps';
+import * as actions from './actions';
 
 export {
   libs,
@@ -14,4 +15,5 @@ export {
   selectors,
   sagas,
   deps,
+  actions,
 };
