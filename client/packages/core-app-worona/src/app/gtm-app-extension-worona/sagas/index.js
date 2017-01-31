@@ -1,20 +1,21 @@
+/* eslint-disable no-undef */
 import { takeEvery } from 'redux-saga';
+import { select, take } from 'redux-saga/effects'
+import * as deps from '../deps';
 
-export function* launchGTMEventsSaga(action) {
-  const { type, ...props } = action;
+export function launchGTMEventsSaga({ type, ...props }) {
   window.dataLayer.push({
     event: type,
     props,
   });
 }
 
-export function initDataLayerArray() {
-  window.dataLayer = window.dataLayer || [];
-}
-
 export default function* gtmSagas() {
-  initDataLayerArray();
-  yield [
-    takeEvery('*', launchGTMEventsSaga),
-  ];
+  yield take(deps.types.SITE_ID_CHANGED);
+  const isPreview = yield select(deps.selectors.getPreview);
+
+  if (!isPreview) {
+    window.dataLayer = window.dataLayer || [];
+    yield takeEvery('*', launchGTMEventsSaga);
+  }
 }
