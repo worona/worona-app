@@ -415,7 +415,7 @@
         document.body.appendChild(vendors);
         <% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
           var core = document.createElement('script');
-          vendors.setAttribute('src','<%= htmlWebpackPlugin.files.chunks[chunk].entry %>');
+          core.setAttribute('src','<%= htmlWebpackPlugin.files.chunks[chunk].entry %>');
           document.body.appendChild(core);
         <% } %>
       }
