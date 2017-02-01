@@ -16,7 +16,7 @@ export function* previewSaga() {
 }
 
 export default function* routerSagas() {
-  if (window.__woronaSiteId__) yield call(siteIdChangedSaga, { siteID: window.__woronaSiteId__ });
+  if (window.__woronaSiteId__) yield call(siteIdChangedSaga, { siteId: window.__woronaSiteId__ });
   yield [
     takeEvery(({ type, payload }) =>
     type === types.ROUTER_DID_CHANGE && payload.location.query.preview === 'true',
