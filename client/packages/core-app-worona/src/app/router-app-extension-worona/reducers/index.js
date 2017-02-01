@@ -4,9 +4,9 @@ import * as types from '../types';
 export default () => (state = { historyLength: 0 }, action) => {
   switch (action.type) {
     case types.SITE_ID_CHANGED:
-      return { ...state, siteId: action.siteId };
+      return { ...state, siteId: action.siteId, ...routerStateReducer(state, action) };
     case types.IS_PREVIEW:
-      return { ...state, preview: true };
+      return { ...state, preview: true, ...routerStateReducer(state, action) };
     case types.ROUTER_DID_CHANGE:
       return {
         ...state,
