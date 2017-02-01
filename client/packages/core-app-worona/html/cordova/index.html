@@ -416,8 +416,8 @@
         <% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
           var core = document.createElement('script');
           core.setAttribute('src','<%= htmlWebpackPlugin.files.chunks[chunk].entry %>');
-          document.body.appendChild(core);
         <% } %>
+        vendors.onload = function() { document.body.appendChild(core); };
       }
 
       var icons = {
