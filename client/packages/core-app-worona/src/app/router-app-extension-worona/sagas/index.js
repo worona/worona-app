@@ -1,11 +1,12 @@
+/* eslint-disable no-underscore-dangle, no-undef */
 import { takeEvery } from 'redux-saga';
-import { put, select } from 'redux-saga/effects';
+import { put, select, call } from 'redux-saga/effects';
 import * as types from '../types';
 import * as actions from '../actions';
 import * as selectors from '../selectors';
 
 export function* siteIdChangedSaga(action) {
-  const newSiteId = action.payload.location.query.siteId;
+  const newSiteId = action.siteId || action.payload.location.query.siteId;
   const currentSiteId = yield select(selectors.getSiteId);
   if (newSiteId !== currentSiteId) yield put(actions.siteIdChanged({ siteId: newSiteId }));
 }
@@ -15,6 +16,7 @@ export function* previewSaga() {
 }
 
 export default function* routerSagas() {
+  if (window.__woronaSiteId__) yield call(siteIdChangedSaga, { siteID: window.__woronaSiteId__ });
   yield [
     takeEvery(({ type, payload }) =>
     type === types.ROUTER_DID_CHANGE && payload.location.query.preview === 'true',
