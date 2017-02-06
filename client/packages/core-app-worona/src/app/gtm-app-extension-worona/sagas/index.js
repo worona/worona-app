@@ -3,9 +3,10 @@ import { takeEvery } from 'redux-saga';
 import { select, take } from 'redux-saga/effects'
 import * as deps from '../deps';
 
-export function launchGTMEventsSaga({ type }) {
+export function launchGTMEventsSaga({ type, ...props }) {
   window.dataLayer.push({
     event: type,
+    props,
   });
 }
 
