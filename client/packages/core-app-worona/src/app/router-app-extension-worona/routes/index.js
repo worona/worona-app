@@ -77,10 +77,22 @@ const mapStateToContentProps = state => ({
 });
 const Content = connect(mapStateToContentProps)(ContentClass);
 
-export const routes = () => (
+const addSiteId = store => (prevState, nextState, replace) => {
+  if (!nextState.location.query.siteId) {
+    const siteId = store.getState().router.siteId;
+    if (siteId) {
+      replace({
+        pathname: nextState.location.pathname,
+        query: { ...nextState.location.query, siteId },
+      });
+    }
+  }
+};
+
+export const routes = store => (
   <Route path="/" component={ThemeLoader}>
-    <IndexRoute component={Content} />
-    <Route path="*" component={Content} />
+    <IndexRoute component={Content} onChange={addSiteId(store)} />
+    <Route path="*" component={Content} onChange={addSiteId(store)} />
   </Route>
 );
 

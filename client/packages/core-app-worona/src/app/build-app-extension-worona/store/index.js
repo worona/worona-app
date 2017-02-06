@@ -22,19 +22,29 @@ export const store = createStore(
   combineReducers(reducers),
   composeEnhancers(
     reduxReactRouter({
-      createHistory: !isTest ? require('history').createHistory : require('history').createMemoryHistory,
+      createHistory: (
+        !isTest ? require('history').createHistory : require('history').createMemoryHistory
+      ),
     }),
     applyMiddleware(sagaMiddleware),
-  )
+  ),
 );
 
 export default store;
 
 export const dispatch = action => store.dispatch(action);
 export const reloadReducers = () => store.replaceReducer(combineReducers(reducers));
-export const addReducer = (namespace, reducer) => { if (reducer) reducers[namespace] = reducer; };
-export const removeReducer = (namespce) => { if (reducers[namespce]) delete reducers[namespce]; };
-export const startSaga = (namespace, saga) => { sagas[namespace] = sagaMiddleware.run(saga); };
-export const stopSaga = (namespace) => { if (sagas[namespace]) sagas[namespace].cancel(); };
+export const addReducer = (namespace, reducer) => {
+  if (reducer) reducers[namespace] = reducer;
+};
+export const removeReducer = namespce => {
+  if (reducers[namespce]) delete reducers[namespce];
+};
+export const startSaga = (namespace, saga) => {
+  sagas[namespace] = sagaMiddleware.run(saga);
+};
+export const stopSaga = namespace => {
+  if (sagas[namespace]) sagas[namespace].cancel();
+};
 export const getState = store.getState.bind(store);
 export const history = store.history;
