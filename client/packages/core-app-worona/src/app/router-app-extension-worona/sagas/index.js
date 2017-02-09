@@ -20,6 +20,9 @@ export default function* routerSagas() {
     yield take(types.ROUTER_DID_CHANGE);
     yield call(siteIdChangedSaga, { siteId: window.__woronaSiteId__ });
   }
+  if (window.__woronaUserId__) {
+    yield put(actions.userIdChanged({ userId: window.__woronaUserId__ }));
+  }
   yield [
     takeEvery(({ type, payload }) =>
     type === types.ROUTER_DID_CHANGE && payload.location.query.preview === 'true',
