@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable no-unused-vars, no-undef */
 import request from 'superagent';
 import { takeLatest } from 'redux-saga';
 import { put, fork, call, select, take } from 'redux-saga/effects';
@@ -23,11 +23,12 @@ export function* retrieveSettings({ siteId }) {
   try {
     // Call the API.
     const env = isDev ? 'dev' : 'prod';
+    const cdn = window.loaction.host === 'preapp.worona.org' ? 'precdn' : 'cdn';
     const isPreview = yield select(deps.selectors.getPreview);
     const preview = isPreview ? 'preview' : 'live';
     const res = yield call(
       request.get,
-      `https://cdn.worona.io/api/v1/settings/site/${siteId}/app/${env}/${preview}`,
+      `https://${cdn}.worona.io/api/v1/settings/site/${siteId}/app/${env}/${preview}`,
     );
     const settings = flow(
       keyBy(setting => setting.woronaInfo.namespace),
