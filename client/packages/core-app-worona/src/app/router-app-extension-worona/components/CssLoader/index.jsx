@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React from 'react';
 import { connect } from 'react-redux';
 import * as deps from '../../deps';
@@ -38,12 +39,12 @@ const mapDispatchToProps = (dispatch, { path, pkgName }) => ({
 
 const LinkCss = connect(null, mapDispatchToProps)(LinkCssClass);
 
-const CssLoader = ({ cssAssets }) => (
+const CssLoader = ({ cssAssets, cdn }) => (
   <div>
     {cssAssets.map(asset => (
       <LinkCss
         pkgName={asset.pkgName}
-        cdn="https://cdn.worona.io/packages/"
+        cdn={`https://${cdn}.worona.io/packages/`}
         path={asset.path}
         key={asset.path}
       />
@@ -55,8 +56,16 @@ CssLoader.propTypes = {
   cssAssets: React.PropTypes.arrayOf(
     React.PropTypes.shape({ path: React.PropTypes.string, pkgName: React.PropTypes.string }),
   ).isRequired,
+  cdn: React.PropTypes.string.isRequired,
 };
 
-export const mapStateToProps = state => ({ cssAssets: deps.selectors.getCssAssets(state) });
+export const mapStateToProps = state => ({
+  cssAssets: deps.selectors.getCssAssets(state),
+  cdn: (
+    window.location.host === 'preapp.worona.org' || window.location.host === 'localhost:5000'
+      ? 'precdn'
+      : 'cdn'
+  ),
+});
 
 export default connect(mapStateToProps)(CssLoader);

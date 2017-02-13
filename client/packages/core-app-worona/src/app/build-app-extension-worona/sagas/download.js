@@ -8,7 +8,7 @@ import * as actions from '../actions';
 // Function used to require local packages. It uses a "require context" of webpack
 // so webpack knows about the included packages and create the bundles. We use bundle-loader
 // in the webpack config to separate the bundles.
-export const requireLocalPackage = pkg => new Promise((resolve) => {
+export const requireLocalPackage = pkg => new Promise(resolve => {
   const pkgName = /(.+)-worona/.exec(pkg.name)[1];
   const req = require(`../../../../../${pkgName}-worona/src/app/index.js`);
   req(module => resolve(module));
@@ -18,7 +18,9 @@ export const requireLocalPackage = pkg => new Promise((resolve) => {
 // are now in the browser without webpack. We need to be able to modify those packages without
 // having to recompile the core-dashboard-worona package, so we can't use Webpack here.
 export const requireRemotePackage = pkg => new Promise((resolve, reject) => {
-  SystemJS.import(`https://cdn.worona.io/packages/${pkg.main}`)
+  const host = window.location.host;
+  const cdn = host === 'preapp.worona.org' || host === 'localhost:5000' ? 'precdn' : 'cdn';
+  SystemJS.import(`https://${cdn}.worona.io/packages/${pkg.main}`)
   .then(module => resolve(module))
   .catch(error => reject(error));
 });
