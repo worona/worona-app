@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 import { takeEvery } from 'redux-saga';
 import { select, take, fork, call } from 'redux-saga/effects';
+import Mixpanel from 'mixpanel';
 import * as deps from '../deps';
 
 export function launchGtmEventsSaga({ type, ...props }) {
@@ -55,9 +56,8 @@ export function* virtualPageView() {
 
 export default function* gtmSagas() {
   yield take(deps.types.SITE_ID_CHANGED);
-  // const isPreview = yield select(deps.selectors.getPreview);
-
   window.dataLayer = window.dataLayer || [];
+  window.MixpanelNode = Mixpanel;
   yield [
     fork(function* firstVirtualPageView() {
       yield take(deps.types.APP_SETTINGS_SUCCEED);
