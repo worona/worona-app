@@ -54,7 +54,10 @@ const CssLoader = ({ cssAssets, cdn }) => (
 
 CssLoader.propTypes = {
   cssAssets: React.PropTypes.arrayOf(
-    React.PropTypes.shape({ path: React.PropTypes.string, pkgName: React.PropTypes.string }),
+    React.PropTypes.shape({
+      path: React.PropTypes.string,
+      pkgName: React.PropTypes.string,
+    }),
   ).isRequired,
   cdn: React.PropTypes.string.isRequired,
 };
