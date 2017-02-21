@@ -233,14 +233,13 @@
           AppSettings.get(
             function(values) {
               window.__woronaSiteId__ = values.siteid;
-              window.__woronaUserId__ = values.userid;
               console.log('The siteId is: ' + window.__woronaSiteId__);
               self.checkForUpdate();
             },
             function(error) {
                 alert('Fatal error: Error getting the site id -> ' + JSON.stringify(error));
                 return;
-            }, ['siteid', 'userid']
+            }, ['siteid']
           );
         },
 
