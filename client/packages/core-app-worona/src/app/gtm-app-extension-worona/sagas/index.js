@@ -12,11 +12,9 @@ export function launchGtmEventsSaga({ type, ...props }) {
 }
 
 export function* virtualPageView() {
-  const pathname = yield select(deps.selectors.getPathname);
   const query = yield select(deps.selectors.getURLQueries);
-  const siteUrl = yield select(deps.selectorCreators.getSetting('generalSite', 'url'));
   const siteName = yield select(deps.selectorCreators.getSetting('generalSite', 'name'));
-  let url = `${siteUrl}${pathname}`;
+  let url = yield select(deps.selectorCreators.getSetting('generalSite', 'url'));
   let title = `${siteName} - `;
   if (query.p) {
     title += `Post - ${query.p}`;
