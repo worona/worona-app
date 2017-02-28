@@ -19,10 +19,12 @@ export const requireLocalPackage = pkg => new Promise(resolve => {
 // having to recompile the core-dashboard-worona package, so we can't use Webpack here.
 export const requireRemotePackage = pkg => new Promise((resolve, reject) => {
   const host = window.location.host;
-  const cdn = host === 'preapp.worona.org' || host === 'localhost' ? 'precdn' : 'cdn';
+  const cdn = host.startsWith('preapp.worona.org') || host.startsWith('localhost')
+    ? 'precdn'
+    : 'cdn';
   SystemJS.import(`https://${cdn}.worona.io/packages/${pkg.main}`)
-  .then(module => resolve(module))
-  .catch(error => reject(error));
+    .then(module => resolve(module))
+    .catch(error => reject(error));
 });
 
 // Function triggered by PACKAGE_DOWNLOAD_REQUESTED and used to download each package/module
@@ -42,7 +44,5 @@ export function* packageDownloadSaga({ pkg }) {
 }
 
 export default function* sagas() {
-  yield [
-    takeEvery(types.PACKAGE_DOWNLOAD_REQUESTED, packageDownloadSaga),
-  ];
+  yield [takeEvery(types.PACKAGE_DOWNLOAD_REQUESTED, packageDownloadSaga)];
 }

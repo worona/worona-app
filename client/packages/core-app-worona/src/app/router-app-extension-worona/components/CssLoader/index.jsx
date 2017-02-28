@@ -33,7 +33,7 @@ const mapDispatchToProps = (dispatch, { path, pkgName }) => ({
     dispatch(deps.actions.packageAssetFileDownloaded({ path, pkgName, assetType: 'css' })),
   assetsFileDontDownloaded: error =>
     dispatch(
-      deps.actions.packageAssetFileDontDownloaded({ path, pkgName, assetType: 'css', error }),
+      deps.actions.packageAssetFileDontDownloaded({ path, pkgName, assetType: 'css', error })
     ),
 });
 
@@ -53,22 +53,16 @@ const CssLoader = ({ cssAssets, cdn }) => (
 );
 
 CssLoader.propTypes = {
-  cssAssets: React.PropTypes.arrayOf(
-    React.PropTypes.shape({
-      path: React.PropTypes.string,
-      pkgName: React.PropTypes.string,
-    }),
-  ).isRequired,
+  cssAssets: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
   cdn: React.PropTypes.string.isRequired,
 };
 
 export const mapStateToProps = state => ({
   cssAssets: deps.selectors.getCssAssets(state),
-  cdn: (
-    window.location.host === 'preapp.worona.org' || window.location.host === 'localhost'
-      ? 'precdn'
-      : 'cdn'
-  ),
+  cdn: window.location.host.startsWith('preapp.worona.org') ||
+    window.location.host.startsWith('localhost')
+    ? 'precdn'
+    : 'cdn',
 });
 
 export default connect(mapStateToProps)(CssLoader);
