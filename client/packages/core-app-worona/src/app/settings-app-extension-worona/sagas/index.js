@@ -24,19 +24,21 @@ export function* retrieveSettings({ siteId }) {
     // Call the API.
     const env = isDev ? 'dev' : 'prod';
     const host = window.location.host;
-    const cdn = host === 'preapp.worona.org' || host === 'localhost' ? 'precdn' : 'cdn';
+    const cdn = host.startsWith('preapp.worona.org') || host.startsWith('localhost')
+      ? 'precdn'
+      : 'cdn';
     const isPreview = yield select(deps.selectors.getPreview);
     const preview = isPreview ? 'preview' : 'live';
     const res = yield call(
       request.get,
-      `https://${cdn}.worona.io/api/v1/settings/site/${siteId}/app/${env}/${preview}`,
+      `https://${cdn}.worona.io/api/v1/settings/site/${siteId}/app/${env}/${preview}`
     );
     const settings = flow(
       keyBy(setting => setting.woronaInfo.namespace),
       mapValues(setting => {
         const { woronaInfo, ...rest } = setting;
         return rest;
-      }),
+      })
     )(res.body);
     // Extract the packages info from settings.
     const devPkgs = getDevelopmentPackages();
@@ -45,7 +47,7 @@ export function* retrieveSettings({ siteId }) {
       values,
       concat(res.body.filter(pkg => devNamespaces.indexOf(pkg.woronaInfo.namespace) === -1)),
       map(setting => ({ ...setting.woronaInfo.app, ...setting.woronaInfo })),
-      filter(pkg => pkg.name !== 'site-general-settings-worona'),
+      filter(pkg => pkg.name !== 'site-general-settings-worona')
     )(devPkgs);
     // Inform that the API call was successful.
     yield put(actions.appSettingsSucceed({ settings, pkgs }));
