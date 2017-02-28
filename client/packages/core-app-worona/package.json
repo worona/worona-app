@@ -1,6 +1,6 @@
 {
   "name": "core-app-worona",
-  "version": "1.4.29",
+  "version": "1.4.30",
   "description": "Core Package of Worona App",
   "scripts": {
     "test": "NODE_PATH=../core-app-worona/node_modules gstava src/**/tests/**/*.js --watch --verbose --require babel-register --require babel-polyfill"
