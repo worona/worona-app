@@ -24,7 +24,7 @@ export function* retrieveSettings({ siteId }) {
     // Call the API.
     const env = isDev ? 'dev' : 'prod';
     const host = window.location.host;
-    const cdn = host === 'preapp.worona.org' || host === 'localhost:5000' ? 'precdn' : 'cdn';
+    const cdn = host === 'preapp.worona.org' || host === 'localhost' ? 'precdn' : 'cdn';
     const isPreview = yield select(deps.selectors.getPreview);
     const preview = isPreview ? 'preview' : 'live';
     const res = yield call(
