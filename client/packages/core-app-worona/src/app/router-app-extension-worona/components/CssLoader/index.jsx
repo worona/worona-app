@@ -65,7 +65,7 @@ CssLoader.propTypes = {
 export const mapStateToProps = state => ({
   cssAssets: deps.selectors.getCssAssets(state),
   cdn: (
-    window.location.host === 'preapp.worona.org' || window.location.host === 'localhost:5000'
+    window.location.host === 'preapp.worona.org' || window.location.host === 'localhost'
       ? 'precdn'
       : 'cdn'
   ),
