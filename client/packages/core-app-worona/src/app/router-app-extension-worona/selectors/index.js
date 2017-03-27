@@ -9,3 +9,6 @@ export const getSiteId = state => state.router.siteId;
 export const getPreview = state => state.router.preview === true;
 
 export const getHistoryLength = state => state.router.historyLength;
+
+export const getContentType = state => state.router.contentType;
+export const getContentId = state => state.router.contentId;
