@@ -38,56 +38,22 @@ class EntryClass extends React.Component {
 EntryClass.propTypes = { component: React.PropTypes.string };
 const Entry = connect(mapStateToProps)(EntryClass);
 
-const ContentClass = ({ query }) => {
-  let component = 'Home';
-  if (query.p)
-    component = 'Post';
-  else if (query.cat)
-    component = 'Category';
-  else if (query.tag)
-    component = 'Tag';
-  else if (query.author)
-    component = 'Author';
-  else if (query.y || query.m)
-    component = 'Archive';
-  else if (query.page_id)
-    component = 'Page';
-  else if (query.s)
-    component = 'Search';
-  else if (query.attachment_id)
-    component = 'Attachment';
+const Content = connect(state => ({
+  contentType: selectors.getContentType(state),
+}))(({ contentType }) => <Entry component={contentType} />);
 
-  return <Entry component={component} />;
-}
-ContentClass.propTypes = {
-  query: React.PropTypes.shape({
-    p: React.PropTypes.string,
-    cat: React.PropTypes.string,
-    tag: React.PropTypes.string,
-    author: React.PropTypes.string,
-    y: React.PropTypes.string,
-    m: React.PropTypes.string,
-    page_id: React.PropTypes.string,
-    s: React.PropTypes.string,
-    attachment_id: React.PropTypes.string,
-  }),
-};
-const mapStateToContentProps = state => ({
-  query: selectors.getURLQueries(state),
-});
-const Content = connect(mapStateToContentProps)(ContentClass);
-
-const addSiteId = store => (prevState, nextState, replace) => {
-  if (!nextState.location.query.siteId) {
-    const siteId = store.getState().router.siteId;
-    if (siteId) {
-      replace({
-        pathname: nextState.location.pathname,
-        query: { ...nextState.location.query, siteId },
-      });
+const addSiteId = store =>
+  (prevState, nextState, replace) => {
+    if (!nextState.location.query.siteId) {
+      const siteId = store.getState().router.siteId;
+      if (siteId) {
+        replace({
+          pathname: nextState.location.pathname,
+          query: { ...nextState.location.query, siteId },
+        });
+      }
     }
-  }
-};
+  };
 
 export const routes = store => (
   <Route path="/" component={ThemeLoader}>
