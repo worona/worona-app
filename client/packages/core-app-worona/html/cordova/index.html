@@ -9,6 +9,7 @@
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
     <title><%= htmlWebpackPlugin.options.title || 'Worona'%></title>
+
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -16,6 +17,7 @@
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-KBSB5N');</script>
     <!-- End Google Tag Manager -->
+
     <style>
       html, body {
         margin: 0;
@@ -205,8 +207,6 @@
 
     <script type="text/javascript" src="cordova.js"></script>
 
-
-
     <script type="text/javascript">
       <% if (htmlWebpackPlugin.options.window) { %>
         <% for (var varName in htmlWebpackPlugin.options.window) { %>
@@ -233,20 +233,22 @@
           AppSettings.get(
             function(values) {
               window.__woronaSiteId__ = values.siteid;
+              window.__woronaCdn__ = values.cdn || 'cdn';
               console.log('The siteId is: ' + window.__woronaSiteId__);
               self.checkForUpdate();
             },
             function(error) {
                 alert('Fatal error: Error getting the site id -> ' + JSON.stringify(error));
                 return;
-            }, ['siteid']
+            }, ['siteid', 'cdn']
           );
         },
 
         checkForUpdate: function() {
           if (!app.checkForConnection()) screens.errors.noConnection();
           var options = {
-            'config-file': 'https://cdn.worona.io/api/v1/chcp/site/' + window.__woronaSiteId__ + '/chcp.json',
+            'config-file': 'https://' + window.__woronaCdn__ + '.worona.io/api/v1/chcp/site/' +
+            window.__woronaSiteId__ + '/chcp.json',
           };
           chcp.fetchUpdate(app.fetchUpdateCallback, options);
           screens.checkingUpdates();
