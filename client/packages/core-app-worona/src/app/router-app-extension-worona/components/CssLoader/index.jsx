@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+/* eslint-disable no-undef, no-underscore-dangle */
 import React from 'react';
 import { connect } from 'react-redux';
 import * as deps from '../../deps';
@@ -60,7 +60,8 @@ CssLoader.propTypes = {
 export const mapStateToProps = state => ({
   cssAssets: deps.selectors.getCssAssets(state),
   cdn: window.location.host.startsWith('preapp.worona.org') ||
-    window.location.host.startsWith('localhost')
+    window.location.host.startsWith('localhost') ||
+    window.__worona__.pre
     ? 'precdn'
     : 'cdn',
 });
