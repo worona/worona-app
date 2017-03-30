@@ -233,21 +233,20 @@
           AppSettings.get(
             function(values) {
               window.__woronaSiteId__ = values.siteid;
-              window.__woronaCdn__ = values.cdn || 'cdn';
               console.log('The siteId is: ' + window.__woronaSiteId__);
               self.checkForUpdate();
             },
             function(error) {
                 alert('Fatal error: Error getting the site id -> ' + JSON.stringify(error));
                 return;
-            }, ['siteid', 'cdn']
+            }, ['siteid']
           );
         },
 
         checkForUpdate: function() {
           if (!app.checkForConnection()) screens.errors.noConnection();
           var options = {
-            'config-file': 'https://' + window.__woronaCdn__ + '.worona.io/api/v1/chcp/site/' +
+            'config-file': 'https://<%=htmlWebpackPlugin.options.cdn%>.worona.io/api/v1/chcp/site/' +
             window.__woronaSiteId__ + '/chcp.json',
           };
           chcp.fetchUpdate(app.fetchUpdateCallback, options);
