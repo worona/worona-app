@@ -1,6 +1,6 @@
 /* eslint-disable react/prefer-stateless-function, react/no-multi-comp, react/prop-types
 eslint-disable prefer-template, react/prefer-es6-class, react/jsx-filename-extension, camelcase,
-react/no-unused-prop-types */
+react/no-unused-prop-types, no-undef */
 import React from 'react';
 import { dep } from 'worona-deps';
 import { connect } from 'react-redux';
@@ -42,23 +42,22 @@ const Content = connect(state => ({
   contentType: selectors.getContentType(state),
 }))(({ contentType }) => <Entry component={contentType} />);
 
-const addSiteId = store =>
+const addSiteIdAndBaseHref = store =>
   (prevState, nextState, replace) => {
-    if (!nextState.location.query.siteId) {
-      const siteId = store.getState().router.siteId;
-      if (siteId) {
-        replace({
-          pathname: nextState.location.pathname,
-          query: { ...nextState.location.query, siteId },
-        });
-      }
-    }
+    const pathname = /^file.+index\.html/.test(window.location.href)
+      ? /(.+index\.html)/.exec(window.location.href)[1] + nextState.location.pathname
+      : nextState.location.pathname;
+    const query = !nextState.location.query.siteId
+      ? { ...nextState.location.query, siteId: store.getState().router.siteId }
+      : nextState.location.query;
+    if (pathname !== nextState.location.pathname || query !== nextState.location.query)
+      replace({ pathname, query });
   };
 
 export const routes = store => (
   <Route path="/" component={ThemeLoader}>
-    <IndexRoute component={Content} onChange={addSiteId(store)} />
-    <Route path="*" component={Content} onChange={addSiteId(store)} />
+    <IndexRoute component={Content} onChange={addSiteIdAndBaseHref(store)} />
+    <Route path="*" component={Content} onChange={addSiteIdAndBaseHref(store)} />
   </Route>
 );
 
