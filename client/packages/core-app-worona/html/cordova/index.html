@@ -417,6 +417,14 @@
           core.setAttribute('src','<%= htmlWebpackPlugin.files.chunks[chunk].entry %>');
         <% } %>
         vendors.onload = function() { document.body.appendChild(core); };
+        vendors.onerror = function() {
+          navigator.notification.alert(
+            'Your app is out of date. Please go to the App Store to update it.',
+            function(){},
+            'App out of date',
+            'Ok'
+          );
+        };
       }
 
       var icons = {
