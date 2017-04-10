@@ -304,9 +304,12 @@
         },
 
         launch: function() {
-          console.log('Launching app...');
-          clearScreen();
-          injectWoronaScripts();
+          if (!app.checkForConnection()) screens.errors.noConnection();
+          else {
+            console.log('Launching app...');
+            clearScreen();
+            injectWoronaScripts();
+          }
         }
       };
 
@@ -378,7 +381,7 @@
         var color = isRedColor ? 'danger' : 'primary';
         var retryButton =
           '<span id="retryButton" >\
-              <a class="button is-' + color + ' is-outlined" onclick="app.checkForUpdate()">\
+              <a class="button is-' + color + ' is-outlined" onclick="app.launch()">\
                 Try again\
               </a> \
           </span>';
