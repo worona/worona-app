@@ -234,7 +234,7 @@
             function(values) {
               window.__woronaSiteId__ = values.siteid;
               console.log('The siteId is: ' + window.__woronaSiteId__);
-              self.checkForUpdate();
+              self.launch();
             },
             function(error) {
                 alert('Fatal error: Error getting the site id -> ' + JSON.stringify(error));
@@ -419,7 +419,7 @@
         vendors.onload = function() { document.body.appendChild(core); };
         vendors.onerror = function() {
           navigator.notification.alert(
-            'Your app is out of date. Please go to the App Store to update it.',
+            'Your app is out of date. Please go to the App Store or Google Play to update it.',
             function(){},
             'App out of date',
             'Ok'
