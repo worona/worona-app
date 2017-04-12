@@ -35,4 +35,4 @@ i18next
   });
 
 export default i18next;
-if (typeof window !== 'undefined') window.i18next = i18next;
+export const changeLanguage = i18next.changeLanguage.bind(i18next);
