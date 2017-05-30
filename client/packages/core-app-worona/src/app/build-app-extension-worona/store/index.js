@@ -2,7 +2,7 @@
 /* global window */
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import { isTest } from 'worona-deps';
+import { isTest, isAndroid } from 'worona-deps';
 import { reduxReactRouter } from 'redux-router';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import build from '../reducers';
@@ -18,16 +18,14 @@ const composeEnhancers = composeWithDevTools({
   serialize: false,
 });
 
+let createHistory = null;
+if (isTest) createHistory = require('history').createMemoryHistory;
+else if (isAndroid) createHistory = require('history').createHashHistory;
+else createHistory = require('history').createHistory;
+
 export const store = createStore(
   combineReducers(reducers),
-  composeEnhancers(
-    reduxReactRouter({
-      createHistory: (
-        !isTest ? require('history').createHistory : require('history').createMemoryHistory
-      ),
-    }),
-    applyMiddleware(sagaMiddleware),
-  ),
+  composeEnhancers(reduxReactRouter({ createHistory }), applyMiddleware(sagaMiddleware))
 );
 
 export default store;
