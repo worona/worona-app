@@ -120,68 +120,6 @@
       .text-grey {
         color: #7F8C8D;
       }
-
-      .loader, .loader:after {
-        border-radius: 50%;
-        width: 48px;
-        height: 48px;
-      }
-      .loader {
-        margin: 20px auto;
-        font-size: 10px;
-        position: relative;
-        text-indent: -9999em;
-      }
-      .loader-1 {
-        border-top: 0.6em solid rgba(51,51,51, 0.2);
-        border-right: 0.6em solid rgba(51,51,51, 0.2);
-        border-bottom: 0.6em solid rgba(51,51,51, 0.2);
-        border-left: 0.6em solid #4A90E2;
-
-        -webkit-transform: translateZ(0);
-        -ms-transform: translateZ(0);
-        transform: translateZ(0);
-        -webkit-animation: load8 1.6s infinite linear;
-        animation: load8 1.6s infinite linear;
-      }
-      .loader-2 {
-        border-top: 0.6em solid rgba(51,51,51, 0.2);
-        border-right: 0.6em solid rgba(51,51,51, 0.2);
-        border-bottom:  0.6em solid #4A90E2;
-        border-left: 0.6em solid #4A90E2;
-
-        -webkit-transform: translateZ(0);
-        -ms-transform: translateZ(0);
-        transform: translateZ(0);
-        -webkit-animation: load8 1.6s infinite linear;
-        animation: load8 1.6s infinite linear;
-      }
-      .loader-3 {
-        border-top:  0.6em solid #27ae60;
-        border-right:  0.6em solid #27ae60;
-        border-bottom:  0.6em solid #27ae60;
-        border-left: 0.6em solid #27ae60;
-      }
-      @-webkit-keyframes load8 {
-        0% {
-          -webkit-transform: rotate(0deg);
-          transform: rotate(0deg);
-        }
-        100% {
-          -webkit-transform: rotate(360deg);
-          transform: rotate(360deg);
-        }
-      }
-      @keyframes load8 {
-        0% {
-          -webkit-transform: rotate(0deg);
-          transform: rotate(0deg);
-        }
-        100% {
-          -webkit-transform: rotate(360deg);
-          transform: rotate(360deg);
-        }
-      }
     </style>
   </head>
   <body>
@@ -197,9 +135,32 @@
       <div></div>
       <div id="container">
         <div id="iconContainer" class="icon"></div>
-        <span id="messageContainer"></span>
+        <span id="messageContainer">
+          <div class="icon">
+            <svg width="60px" height="60px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <title>wifi</title>
+              <defs></defs>
+              <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g id="wifi" fill="#7F8C8D">
+                  <g id="Group" transform="translate(0.000000, 7.000000)">
+                    <path d="M5.82189977,16.4843564 C18.7888584,3.56062097 40.7532984,3.56062097 53.7864149,16.4843564 C54.4479945,17.1437306 55.3080478,17.4734177 56.1681012,17.4734177 C57.0281546,17.4734177 57.888208,17.1437306 58.5497875,16.4843564 C59.8729465,15.1656079 59.8729465,13.0556102 58.5497875,11.7368617 C50.941623,4.1540578 40.7532984,1.77635684e-15 29.7710784,1.77635684e-15 C18.7888584,1.77635684e-15 8.60053376,4.1540578 0.992369279,11.7368617 C-0.33078976,13.0556102 -0.33078976,15.1656079 0.992369279,16.4843564 C2.31552832,17.8031049 4.49874073,17.8031049 5.82189977,16.4843564 L5.82189977,16.4843564 Z" id="Shape"></path>
+                    <path d="M39.9061181,33.9291283 C40.7661715,33.9291283 41.6262249,33.5994411 42.2878044,32.9400669 C43.6109634,31.6213184 43.6109634,29.5113208 42.2878044,28.1925723 C35.3412194,21.2691426 23.6312619,21.2691426 16.684677,28.1925723 C15.3615179,29.5113208 15.3615179,31.6213184 16.684677,32.9400669 C18.007836,34.2588154 20.1248905,34.2588154 21.4480495,32.9400669 C25.6821584,28.7200717 33.158007,28.7200717 37.4582739,32.9400669 C38.1860114,33.5994411 39.0460647,33.9291283 39.9061181,33.9291283 L39.9061181,33.9291283 Z" id="Shape"></path>
+                    <path d="M48.4655691,25.4802962 C49.3256225,25.4802962 50.1856759,25.150609 50.8472554,24.4912348 C52.1704145,23.1724863 52.1704145,21.0624887 50.8472554,19.7437402 C39.2034559,8.13875328 20.9438611,8.13875328 9.30006159,19.7437402 C7.97690255,21.0624887 7.97690255,23.1724863 9.30006159,24.4912348 C10.6232206,25.8099833 12.7402751,25.8099833 14.0634341,24.4912348 C23.1932315,15.3918701 36.9540855,15.3918701 46.0177249,24.4912348 C46.7454624,25.150609 47.6055158,25.4802962 48.4655691,25.4802962 L48.4655691,25.4802962 Z" id="Shape"></path>
+                    <ellipse id="Oval" cx="29.6234259" cy="39.6446812" rx="5.62342592" ry="5.60468116"></ellipse>
+                  </g>
+                </g>
+              </g>
+            </svg>
+          </span>
+        </div>
+        <span class="text-grey">No internet connection</span>
       </div>
       <div id="footer" class="footer" >
+        <span id="retryButton" >
+            <a class="button is-primary is-outlined" onclick="app.launch()">
+              Try again
+            </a>
+        </span>
       </div>
     </div>
 
@@ -214,55 +175,71 @@
         <% } %>
       <% } %>
 
+      var checkForConnection = function() {
+        console.log('Checking for internet connection...');
+        if (navigator.connection.type === Connection.NONE) {
+          console.log('No connection!');
+          return false;
+        }
+        console.log('We have connection!');
+        return true;
+      };
+
+      var launch = function() {
+        if (!app.checkForConnection()) screens.errors.noConnection();
+        else {
+          console.log('Launching app...');
+          clearScreen();
+          injectWoronaScripts();
+        }
+      };
+
+      var checkForUpdate = function() {
+        if (!app.checkForConnection()) screens.errors.noConnection();
+        var options = {
+          'config-file': 'https://<%=htmlWebpackPlugin.options.cdn%>.worona.io/api/v1/chcp/site/' +
+          window.__woronaSiteId__ + '/chcp.json',
+        };
+        chcp.fetchUpdate(app.fetchUpdateCallback, options);
+        screens.checkingUpdates();
+      },
+
+      var onDeviceReady = function() {
+        console.log('Getting siteId...');
+        AppSettings.get(
+          function(values) {
+            window.__woronaSiteId__ = values.siteid;
+            console.log('The siteId is: ' + window.__woronaSiteId__);
+            if (!app.checkForConnection()) screens.errors.noConnection();
+            launch();
+            checkForUpdate();
+          },
+          function(error) {
+              alert('Fatal error: Error getting the site id -> ' + JSON.stringify(error));
+              return;
+          }, ['siteid']
+        );
+      };
+
+      // deviceready Event Handler
+      var initialize = function() {
+        document.addEventListener('deviceready', onDeviceReady);
+      };
+
+      initialize();
+
       var app = {
 
         // Application Constructor
-        initialize: function() {
-          document.addEventListener('deviceready', this.onDeviceReady.bind(this));
-        },
 
-        // deviceready Event Handler
+
+
         //
-        // Bind any cordova events here. Common events are:
-        // 'pause', 'resume', etc.
-        onDeviceReady: function() {
-          //~ document.addEventListener('chcp_updateInstalled', screens.updateInstalled, false ); /* deprecated */
-          console.log('Getting siteId...');
-          // getting site id:
-          var self = this;
-          AppSettings.get(
-            function(values) {
-              window.__woronaSiteId__ = values.siteid;
-              console.log('The siteId is: ' + window.__woronaSiteId__);
-              self.launch();
-            },
-            function(error) {
-                alert('Fatal error: Error getting the site id -> ' + JSON.stringify(error));
-                return;
-            }, ['siteid']
-          );
-        },
 
-        checkForUpdate: function() {
-          if (!app.checkForConnection()) screens.errors.noConnection();
-          var options = {
-            'config-file': 'https://<%=htmlWebpackPlugin.options.cdn%>.worona.io/api/v1/chcp/site/' +
-            window.__woronaSiteId__ + '/chcp.json',
-          };
-          chcp.fetchUpdate(app.fetchUpdateCallback, options);
-          screens.checkingUpdates();
-        },
 
-        checkForConnection: function() {
-          console.log('checking for internet connection...');
 
-          var networkState = navigator.connection.type;
 
-          if (networkState === Connection.NONE) return false;
 
-          console.log('We have connection!');
-          return true;
-        },
 
 
         fetchUpdateCallback: function(error, data) {
@@ -302,15 +279,6 @@
             window.updated = true;
           }
         },
-
-        launch: function() {
-          if (!app.checkForConnection()) screens.errors.noConnection();
-          else {
-            console.log('Launching app...');
-            clearScreen();
-            injectWoronaScripts();
-          }
-        }
       };
 
       app.initialize();
