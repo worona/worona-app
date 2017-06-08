@@ -4,7 +4,7 @@ import { readFile, copy, remove } from 'fs-extra';
 
 const build = async () => {
   console.log('\n=> Building webpack.\n');
-  await spawn('webpack', [ '-p' ], { stdio: 'inherit' });
+  await spawn('webpack', ['-p'], { stdio: 'inherit' });
   console.log('\n=> Reading bundle.js.\n');
   const bundle = await readFile('bundle.js');
   console.log('=> Deleting old index.html.\n');

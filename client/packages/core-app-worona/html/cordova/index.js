@@ -9,7 +9,7 @@ const checkForConnection = async () => {
     document.getElementById('container').style.display = 'block';
     await delay(2000);
   }
-  document.getElementById('container').style.display = 'none';
+  document.getElementById('app').style.display = 'none';
 };
 
 const launchError = () => {
@@ -26,13 +26,11 @@ const launch = () => {
   const core = document.createElement('script');
   vendors.setAttribute(
     'src',
-    `${htmlWebpackPlugin.options.publicPath}${htmlWebpackPlugin.options.vendorsFile}`
+    window.__webpack__.vendorsFile
   );
   document.body.appendChild(vendors);
   console.log('=> Loading vendors.');
-  window.htmlWebpackPlugin.files.chunks.forEach(chunk => {
-    core.setAttribute('src', htmlWebpackPlugin.files.chunks[chunk].entry);
-  });
+  core.setAttribute('src', window.__webpack__.coreFile);
   vendors.onload = () => {
     console.log('=> Vendors loaded. Loading core.');
     document.body.appendChild(core);
@@ -44,7 +42,7 @@ const launch = () => {
   core.onerror = launchError;
 };
 
-const checkForUpdatePromise = new Promise((resolve, reject) => {
+const checkForUpdatePromise = () => new Promise((resolve, reject) => {
   chcp.fetchUpdate(
     error => {
       if (error) {
@@ -58,7 +56,7 @@ const checkForUpdatePromise = new Promise((resolve, reject) => {
       }
     },
     {
-      'config-file': `https://${htmlWebpackPlugin.options.cdn}.worona.io/api/v1/chcp/site/${window.__woronaSiteId__}/chcp.json`,
+      'config-file': `https://${window.__webpack__.cdn}.worona.io/api/v1/chcp/site/${window.__woronaSiteId__}/chcp.json`,
     }
   );
 });
