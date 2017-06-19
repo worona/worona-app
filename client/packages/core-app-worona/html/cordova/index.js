@@ -32,7 +32,7 @@ const launch = () => {
   console.log('=> Loading vendors.');
   core.setAttribute('src', window.__webpack__.coreFile);
   vendors.onload = () => {
-    console.log('=> Vendors loaded. Loading core.');
+    console.log('=> Vendors loaded. Loading core...');
     document.body.appendChild(core);
   };
   core.onload = () => {
