@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <title><%= htmlWebpackPlugin.options.title || 'Worona'%></title>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-KBSB5N');</script>
+    <!-- End Google Tag Manager -->
+
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+        font-size: 13px;
+        font-weight: 300;
+      }
+
+      #app {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+
+        width: 100%;
+        height:100vh;
+      }
+
+      .icon {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .footer {
+        align-self: center;
+        padding-bottom: 15%;
+      }
+
+      .text-grey {
+        color: #7F8C8D;
+      }
+
+      .is-centered {
+        text-align: center;
+      }
+
+      #container {
+        display: none;
+      }
+
+      .show {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KBSB5N"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div id="app">
+      <div></div>
+      <div id="container">
+        <div id="iconContainer" class="icon">
+          <span id="messageContainer">
+            <div class="icon">
+              <svg width="60px" height="60px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <title>wifi</title>
+                <defs></defs>
+                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                  <g id="wifi" fill="#7F8C8D">
+                    <g id="Group" transform="translate(0.000000, 7.000000)">
+                      <path d="M5.82189977,16.4843564 C18.7888584,3.56062097 40.7532984,3.56062097 53.7864149,16.4843564 C54.4479945,17.1437306 55.3080478,17.4734177 56.1681012,17.4734177 C57.0281546,17.4734177 57.888208,17.1437306 58.5497875,16.4843564 C59.8729465,15.1656079 59.8729465,13.0556102 58.5497875,11.7368617 C50.941623,4.1540578 40.7532984,1.77635684e-15 29.7710784,1.77635684e-15 C18.7888584,1.77635684e-15 8.60053376,4.1540578 0.992369279,11.7368617 C-0.33078976,13.0556102 -0.33078976,15.1656079 0.992369279,16.4843564 C2.31552832,17.8031049 4.49874073,17.8031049 5.82189977,16.4843564 L5.82189977,16.4843564 Z" id="Shape"></path>
+                      <path d="M39.9061181,33.9291283 C40.7661715,33.9291283 41.6262249,33.5994411 42.2878044,32.9400669 C43.6109634,31.6213184 43.6109634,29.5113208 42.2878044,28.1925723 C35.3412194,21.2691426 23.6312619,21.2691426 16.684677,28.1925723 C15.3615179,29.5113208 15.3615179,31.6213184 16.684677,32.9400669 C18.007836,34.2588154 20.1248905,34.2588154 21.4480495,32.9400669 C25.6821584,28.7200717 33.158007,28.7200717 37.4582739,32.9400669 C38.1860114,33.5994411 39.0460647,33.9291283 39.9061181,33.9291283 L39.9061181,33.9291283 Z" id="Shape"></path>
+                      <path d="M48.4655691,25.4802962 C49.3256225,25.4802962 50.1856759,25.150609 50.8472554,24.4912348 C52.1704145,23.1724863 52.1704145,21.0624887 50.8472554,19.7437402 C39.2034559,8.13875328 20.9438611,8.13875328 9.30006159,19.7437402 C7.97690255,21.0624887 7.97690255,23.1724863 9.30006159,24.4912348 C10.6232206,25.8099833 12.7402751,25.8099833 14.0634341,24.4912348 C23.1932315,15.3918701 36.9540855,15.3918701 46.0177249,24.4912348 C46.7454624,25.150609 47.6055158,25.4802962 48.4655691,25.4802962 L48.4655691,25.4802962 Z" id="Shape"></path>
+                      <ellipse id="Oval" cx="29.6234259" cy="39.6446812" rx="5.62342592" ry="5.60468116"></ellipse>
+                    </g>
+                  </g>
+                </g>
+              </svg>
+            </div>
+          </span>
+        </div>
+        <div class="text-grey is-centered">No internet.</div>
+        <div class="text-grey is-centered">Waiting for connection...</div>
+      </div>
+      <div id="footer" class="footer" >
+      </div>
+    </div>
+
+    <div id="root"></div>
+
+    <script type="text/javascript" src="cordova.js"></script>
+
+    <script type="text/javascript">
+      window.__webpack__ = {
+        cdn: "<%= htmlWebpackPlugin.options.cdn %>",
+        vendorsFile: "<%= htmlWebpackPlugin.options.vendorsFile %>",
+      };
+      <% if (htmlWebpackPlugin.options.window) { %>
+        <% for (var varName in htmlWebpackPlugin.options.window) { %>
+          window['<%=varName%>'] = <%= JSON.stringify(htmlWebpackPlugin.options.window[varName]) %>;
+        <% } %>
+      <% } %>
+      <% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
+        window.__webpack__.coreFile = "<%= htmlWebpackPlugin.files.chunks[chunk].entry %>";
+      <% } %>
+      ###JAVASCRIPT###
+    </script>
+  </body>
+</html>
